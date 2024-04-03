@@ -1,33 +1,19 @@
-
-
-toastr.options = {
-    "closeButton": false,
-    "debug": true,
-    "newestOnTop": false,
-    "progressBar": true,
-    "positionClass": "toast-top-center",
-    "preventDuplicates": false,
-    "onclick": null,
-    "showDuration": "300",
-    "hideDuration": "1000",
-    "timeOut": "5000",
-    "extendedTimeOut": "1000",
-    "showEasing": "swing",
-    "hideEasing": "linear",
-    "showMethod": "fadeIn",
-    "hideMethod": "fadeOut"
-}
-
-
+const name = document.querySelector("#registerName");
+const registerEmail = document.querySelector("#registerEmail");
+const registerPassword = document.querySelector("#registerPassword");
+const confirmPassword = document.querySelector("#confirmPassword");
+const dataNastere = document.querySelector("#dataNastere");
 let btnregister = document.querySelector("#btn__register");
+
+
+
+// functie html
 let allInputs = document.querySelectorAll("input");
 for (let ele of allInputs) {
     ele.addEventListener("keyup", test);
 }
-
+//   functie html
 function test(e) {
-
-
     if (e.target.value == "") {
         let parrentDiv = e.target.parentNode;
         let label = parrentDiv.querySelector("label");
@@ -35,13 +21,10 @@ function test(e) {
         label.innerText = e.target.placeholder;
         return;
     }
-
     e.target.addEventListener("focusout", focusOut);
-
-
-    // console.log(label);
-
 }
+
+// functie html 
 function focusOut(e) {
     if (e.target.value != "") {
         let parrentDiv = e.target.parentNode;
@@ -63,6 +46,34 @@ function btn_register() {
     document.getElementById("test_label").innerText = "";
 
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -119,4 +130,41 @@ class User {
         this.name = name;
         this.bisrtdate = birthdate;
     }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+toastr.options = {
+    "closeButton": false,
+    "debug": true,
+    "newestOnTop": false,
+    "progressBar": true,
+    "positionClass": "toast-top-center",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
 }
