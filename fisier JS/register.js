@@ -34,7 +34,7 @@ submitBtn.addEventListener("click", function () {
   }
 
   if (valid) {
-    console.log("Sdfgf");
+
     saveUserToLocalStorage();
   }
 });
