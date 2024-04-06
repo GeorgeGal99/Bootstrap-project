@@ -8,6 +8,8 @@ let regex = /^[a-zA-Z]+$/;
 document.getElementById("test_label").innerText = "";
 let user = [];
 
+
+
 // functie html
 let allInputs = document.querySelectorAll("input");
 for (let ele of allInputs) {
@@ -39,7 +41,7 @@ function focusOut(e) {
 
 
 function validateInput() {
-
+    // let emailExists = user.some(user => user.email === registerEmail);
     class User {
         constructor(email, password, confirmPassword, name, dataNastere) {
             this.email = email;
@@ -47,7 +49,6 @@ function validateInput() {
             this.confirmPassword = confirmPassword;
             this.name = name;
             this.dataNastere = dataNastere;
-            this.value = value;
         }
     }
 
@@ -61,24 +62,35 @@ function validateInput() {
         toastr["error"]("Name to short");
         valid = false;
     } else {
-        validateInput(name);
+
         valid = true;
-        saveUserToLocalStorage();
+
     }
-    mj
+
     if (registerEmail.value.trim() == "") {
         valid = false;
         toastr["error"](" Mail can't be blank");
+    }
 
-    } else if (!registerEmail.value.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
+    // } if (registerEmail.value) {
+    //     user = JSON.parse(localStorage.getItem('user') || '[]');
+
+    // } if (emailExists) {
+    //     console.log('Această adresă de e-mail este deja înregistrată.');
+    // }
+    // } else {
+    //     // Adaugă utilizatorul în lista de utilizatori
+    //     // newUser = { name: 'Nume utilizator', email: enteredEmail };
+    //     user.push(newUser);
+    //     // localStorage.setItem('user', JSON.stringify(user));
+    // }
+    else if (!registerEmail.value.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
         valid = false;
         toastr["error"]("Email wrong format");
     } else {
         valid = true;
-        validateInput(registerEmail);
-        saveUserToLocalStorage();
-
     }
+
 
 
     if (registerPassword.value.trim() == "") {
@@ -89,52 +101,72 @@ function validateInput() {
         toastr["error"]("Password wrong format");
     } else {
         valid = true;
-        validateInput(registerPassword);
-        saveUserToLocalStorage();
+
 
     }
 
 
     if (confirmPassword.value.trim() == "") {
-        validateInput(confirmPassword);
+
         valid = false;
         toastr["error"]("Confirm password");
     }
-    if (password !== confirmPassword) {
+    if (registerPassword.value !== confirmPassword.value) {
         valid = false
         toastr["error"]("Password not identic");
 
     } else {
         valid = true;
-        saveUserToLocalStorage();
+
     }
 
 
     if (dataNastere.value.trim() == "") {
-        validateInput(dataNastere);
+
         valid = false;
         toastr["error"]("Date birth can't be blank");
     } else {
         valid = true;
-        saveUserToLocalStorage();
 
+
+    } if (valid) {
+        let user = new User(registerEmail.value, registerPassword.value, confirmPassword.value, name.value, dataNastere.value);
+        saveUserToLocalStorage(user, localStorage.getItem("user"));
+        return true;
+    } else {
+        return false;
     }
 
 }
 
+dataNastere.addEventListener('change', () => {
+    const enteredDate = new Date(dataNastere.value);
+    const currentDate = new Date();
+
+    if (enteredDate <= currentDate) {
+        console.log('Data de naștere este validă.');
+    } else {
+        console.log('Data de naștere nu poate fi în viitor.');
+        return
+    }
+
+});
 
 
 
 
 
+function saveUserToLocalStorage(newUser, localStorage2) {
+    user = [];
+    if (localStorage2) {
+        user = JSON.parse(localStorage2);
 
-function saveUserToLocalStorage(user) {
+    } user.push(newUser);
     // Convertim obiectul user într-un șir de caractere JSON
     const userString = JSON.stringify(user);
 
     // Salvăm șirul de caractere în localStorage
     localStorage.setItem('user', userString);
-    window.location.href = "proiect1__login.html";
     toastr["success"]("Register Succefull");
 }
 
@@ -145,7 +177,7 @@ function btn_register() {
     let valid = false
     if (validateInput()) {
         window.location.href = "proiect1__login.html";
-        saveUserToLocalStorage();
+
     } else {
         valid = false;
         toastr["error"]("completeaza toate campurile");
