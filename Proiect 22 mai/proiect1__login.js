@@ -4,7 +4,9 @@ let loginBtn = document.querySelector("#btn_login");
 
 
 
-loginBtn.addEventListener('click', function () {
+loginBtn.addEventListener('click', login);
+
+function login() {
 
 
     let valid = true;
@@ -21,22 +23,24 @@ loginBtn.addEventListener('click', function () {
     if (loginPassword.value.trim() === "") {
         toastr["error"]("ups,something wrong!");
         valid = false;
+
     } else if (loginPassword.value.length < 5) {
         toastr["error"]("ups,something wrong!");
         valid = false;
     } else {
-        toastr["success"]("Login Successful", "Hello!")
+        toastr["success"]("Login Successful", "Hello!");
     }
 
     if (valid) {
         loginUser();
     }
 
-});
+};
 
 function validEmail(email) {
     const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
     return emailRegex.test(email);
+
 }
 
 
@@ -45,18 +49,17 @@ function loginUser() {
     let email = loginEmail.value.trim();
     let password = loginPassword.value.trim();
 
-    let userFound = users.find(
-        (user) => user.email === email && user.password === password
-    );
 
-    if (userFound) {
-        alert("Login successful");
+
+    if (users.email == email && users.password == password) {
+        toastr["success"]("Login Successful", "Hello!");
         localStorage.setItem("currentUserEmail", email);
-        // Redirecționează către pagina principală de căutare Google
-        window.location.href = "home_page.html";
+        // Redirecționează către pagina home google
+        window.location.href = "proiect1_home.html";
     } else {
         alert("Invalid email or password. Please try again.");
     }
+
 }
 
 
