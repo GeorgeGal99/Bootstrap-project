@@ -21,5 +21,5 @@ toastr.options = {
 btn.addEventListener('click', btn__submit());
 function btn__submit() {
 
-    toastr["success"]("Login Successful", "Hello!")
+    // toastr["success"]("Login Successful", "Hello!")
 };

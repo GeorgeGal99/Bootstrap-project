@@ -5,50 +5,24 @@ const confirmPassword = document.querySelector("#confirmPassword");
 const dataNastere = document.querySelector("#dataNastere");
 let btnregister = document.querySelector("#btn__register");
 let regex = /^[a-zA-Z]+$/;
-document.getElementById("test_label").innerText = "";
 let user = [];
+lastName = document.querySelector("#lastName")
 
 
-
-// functie html
-let allInputs = document.querySelectorAll("input");
-for (let ele of allInputs) {
-    ele.addEventListener("keyup", test);
-}
-//   functie html
-function test(e) {
-    if (e.target.value == "") {
-        let parrentDiv = e.target.parentNode;
-        let label = parrentDiv.querySelector("label");
-        console.log(e.target.placeholder);
-        label.innerText = e.target.placeholder;
-        return;
-    }
-    e.target.addEventListener("focusout", focusOut);
-}
-
-// functie html 
-function focusOut(e) {
-    if (e.target.value != "") {
-        let parrentDiv = e.target.parentNode;
-        let label = parrentDiv.querySelector("label");
-        console.log(e.target);
-        label.innerText = "";
-    }
-}
 
 
 
 
 function validateInput() {
-    // let emailExists = user.some(user => user.email === registerEmail);
+    valid = false;
     class User {
-        constructor(email, password, confirmPassword, name, dataNastere) {
+        constructor(email, password, confirmPassword, name, dataNastere, lastName) {
             this.email = email;
             this.password = password;
             this.confirmPassword = confirmPassword;
             this.name = name;
             this.dataNastere = dataNastere;
+            this.lastName = lastName;
         }
     }
 
@@ -62,9 +36,20 @@ function validateInput() {
         toastr["error"]("Name to short");
         valid = false;
     } else {
-
         valid = true;
+    }
 
+    if (lastName.value.trim() == "") {
+        toastr["error"](" Name can't be blank");
+        valid = false;
+    } else if (!lastName.value.match(/^[a-zA-Z]+$/)) {
+        toastr["error"]("No numbers");
+        valid = false;
+    } else if ((lastName.value).length < 2) {
+        toastr["error"]("Name to short");
+        valid = false;
+    } else {
+        valid = true;
     }
 
     if (registerEmail.value.trim() == "") {
@@ -72,26 +57,13 @@ function validateInput() {
         toastr["error"](" Mail can't be blank");
     }
 
-    // } if (registerEmail.value) {
-    //     user = JSON.parse(localStorage.getItem('user') || '[]');
 
-    // } if (emailExists) {
-    //     console.log('Această adresă de e-mail este deja înregistrată.');
-    // }
-    // } else {
-    //     // Adaugă utilizatorul în lista de utilizatori
-    //     // newUser = { name: 'Nume utilizator', email: enteredEmail };
-    //     user.push(newUser);
-    //     // localStorage.setItem('user', JSON.stringify(user));
-    // }
     else if (!registerEmail.value.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
         valid = false;
         toastr["error"]("Email wrong format");
     } else {
         valid = true;
     }
-
-
 
     if (registerPassword.value.trim() == "") {
         valid = false;
@@ -130,7 +102,7 @@ function validateInput() {
 
 
     } if (valid) {
-        let user = new User(registerEmail.value, registerPassword.value, confirmPassword.value, name.value, dataNastere.value);
+        let user = new User(registerEmail.value, registerPassword.value, confirmPassword.value, name.value, dataNastere.value, lastName.value);
         saveUserToLocalStorage(user, localStorage.getItem("user"));
         return true;
     } else {
@@ -201,3 +173,17 @@ toastr.options = {
     "showMethod": "fadeIn",
     "hideMethod": "fadeOut"
 }
+
+// let emailExists = user.some(user => user.email === registerEmail);
+// } if (registerEmail.value) {
+//     user = JSON.parse(localStorage.getItem('user') || '[]');
+
+// } if (emailExists) {
+//     console.log('Această adresă de e-mail este deja înregistrată.');
+// }
+// } else {
+//     // Adaugă utilizatorul în lista de utilizatori
+//     // newUser = { name: 'Nume utilizator', email: enteredEmail };
+//     user.push(newUser);
+//     // localStorage.setItem('user', JSON.stringify(user));
+// }
