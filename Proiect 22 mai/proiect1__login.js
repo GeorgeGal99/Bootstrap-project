@@ -48,19 +48,23 @@ function loginUser() {
     let users = JSON.parse(localStorage.getItem("user")) || [];
     let email = loginEmail.value.trim();
     let password = loginPassword.value.trim();
+    for (let user of users) {
 
+        if (user.email == email && user.password == password) {
+            toastr["success"]("Login Successful", "Hello!");
+            localStorage.setItem("currentUserEmail", email);
+            // Redirecționează către pagina home google
+            window.location.href = "proiect1_home.html";
+            break;
+        }
 
-
-    if (users.email == email && users.password == password) {
-        toastr["success"]("Login Successful", "Hello!");
-        localStorage.setItem("currentUserEmail", email);
-        // Redirecționează către pagina home google
-        window.location.href = "proiect1_home.html";
-    } else {
-        alert("Invalid email or password. Please try again.");
     }
-
+    alert("Invalid email or password. Please try again.");
 }
+
+
+
+
 
 
 
