@@ -40,7 +40,7 @@
 
         <div class="d-flex flex-row mb-3">
             <div class="p-3">
-                <button type="button" class="btn btn-primary" onclick="ShowCard('addFlatForm')"
+                <button type="button" class="btn btn-primary" onclick="ToggleCard('addFlatForm')"
                     style="--bs-btn-padding-y: .45rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                     Add New Flat
                 </button>
@@ -52,7 +52,7 @@
                 </button>
             </div>
             <div class="p-3">
-                <button type="button" class="btn btn-primary" id="btn_myProfile" onclick="ShowCard('editProfileForm')"
+                <button type="button" class="btn btn-primary" id="btn_myProfile" onclick="ToggleCard('editProfileForm')"
                     style="--bs-btn-padding-y: .45rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                     My Profile
                 </button>
@@ -76,55 +76,56 @@
 
 
                         <!--  Add  new flat form-->
+                        <form id="addFlatForm">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="city_input">
+                                <label for="city_input">City</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="street_name">
+                                <label for="street_name">Street name</label>
+                            </div>
 
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="city_input">
-                            <label for="city_input">City</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="street_name">
-                            <label for="street_name">Street name</label>
-                        </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="street_number">
+                                <label for="street_number">Street number</label>
+                            </div>
 
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="street_number">
-                            <label for="street_number">Street number</label>
-                        </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="area_size">
+                                <label for="area_size">Area size</label>
+                            </div>
 
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="area_size">
-                            <label for="area_size">Area size</label>
-                        </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="has_ac">
+                                <label for="has_ac">Has Ac</label>
+                            </div>
 
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="has_ac">
-                            <label for="has_ac">Has Ac</label>
-                        </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="year_built">
+                                <label for="year_built">Year built</label>
+                            </div>
 
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="year_built">
-                            <label for="year_built">Year built</label>
-                        </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="rent_price">
+                                <label for="rent_price">Rent price</label>
+                            </div>
 
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="rent_price">
-                            <label for="rent_price">Rent price</label>
-                        </div>
-
-                        <div class="form-floating mb-3">
-                            <input type="date" class="form-control" id="date_available">
-                            <label for="date_avilable">Date available</label>
-                        </div>
+                            <div class="form-floating mb-3">
+                                <input type="date" class="form-control" id="date_available">
+                                <label for="date_avilable">Date available</label>
+                            </div>
 
 
-                        <button type="button" class="btn btn-success" id="btn_save">Save</button>
+                            <button type="submit" class="btn btn-success" id="btn_save">Save</button>
+                        </form>
                     </div>
                 </div>
 
 
             </div>
             <div class="col">
-                <div class="card" sstyle="display: none;" id="viewFlatList">
+                <div class="card" id="viewFlatList">
                     <div class="card-body">
 
 
