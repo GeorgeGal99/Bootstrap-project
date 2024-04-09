@@ -14,7 +14,7 @@ lastName = document.querySelector("#lastName")
 
 
 function validateInput() {
-    check = []
+    check = [];
     valid = false;
     class User {
         constructor(email, password, confirmPassword, name, dataNastere, lastName) {
@@ -121,7 +121,7 @@ function validateInput() {
         toastr["error"]("Confirm password");
     }
     if (registerPassword.value !== confirmPassword.value) {
-        valid = false
+        valid = false;
         check.push(valid);
 
         toastr["error"]("Password not identic");
@@ -195,7 +195,7 @@ function saveUserToLocalStorage(newUser, localStorage2) {
 btnregister.addEventListener('click', btn_register);
 
 function btn_register() {
-    let valid = false
+    let valid = false;
     if (validateInput()) {
         window.location.href = "proiect1__login.html";
 
