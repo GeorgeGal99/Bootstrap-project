@@ -168,35 +168,36 @@
                     <div class="card-body">
 
                         <!--   my profile form-->
+                        <form id="editProfile">
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control" id="email_profile">
+                                <label for="email_profile">Email address</label>
+                            </div>
 
-                        <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="email_profile">
-                            <label for="email_profile">Email address</label>
-                        </div>
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control" id="password_profile">
+                                <label for="password_profile">Password</label>
+                            </div>
 
-                        <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="password_profile">
-                            <label for="password_profile">Password</label>
-                        </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="first_name">
+                                <label for="first_name">First Name</label>
+                            </div>
 
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="first_name">
-                            <label for="first_name">First Name</label>
-                        </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="last_name">
+                                <label for="last_name">Last Name</label>
+                            </div>
 
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="last_name">
-                            <label for="last_name">Last Name</label>
-                        </div>
+                            <div class="form-floating mb-3">
+                                <input type="date" class="form-control" id="data_nastere">
+                                <label for="data_nastere">Birth Date </label>
+                            </div>
 
-                        <div class="form-floating mb-3">
-                            <input type="date" class="form-control" id="data_nastere">
-                            <label for="data_nastere">Birth Date </label>
-                        </div>
+                            <button type="submit" class="btn btn-success" id="btn_update_info">Update
+                                information</button>
 
-                        <button type="button" class="btn btn-success" id="btn_update_info">Update information</button>
-
-
+                        </form>
                     </div>
                 </div>
             </div>

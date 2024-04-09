@@ -1,42 +1,37 @@
-const name = document.querySelector("#registerName");
-const registerEmail = document.querySelector("#registerEmail");
-const registerPassword = document.querySelector("#registerPassword");
+const firstName = document.querySelector("#registerName");
+const email = document.querySelector("#registerEmail");
+const password = document.querySelector("#registerPassword");
 const confirmPassword = document.querySelector("#confirmPassword");
-const dataNastere = document.querySelector("#dataNastere");
+const birthDate = document.querySelector("#dataNastere");
 let btnregister = document.querySelector("#btn__register");
 let regex = /^[a-zA-Z]+$/;
 let user = [];
 lastName = document.querySelector("#lastName")
 
 
-
-
-
-
 function validateInput() {
     check = [];
     valid = false;
     class User {
-        constructor(email, password, confirmPassword, name, dataNastere, lastName) {
+        constructor(firstName, lastName, email, password, birthDate) {
+            this.first_name = firstName;
+            this.last_name = lastName;
             this.email = email;
             this.password = password;
-            this.confirmPassword = confirmPassword;
-            this.name = name;
-            this.dataNastere = dataNastere;
-            this.lastName = lastName;
+            this.data_nastere = birthDate;
         }
     }
 
-    if (name.value.trim() == "") {
+    if (firstName.value.trim() == "") {
         toastr["error"](" Name can't be blank");
         valid = false;
         check.push(valid);
-    } else if (!name.value.match(/^[a-zA-Z]+$/)) {
+    } else if (!firstName.value.match(/^[a-zA-Z]+$/)) {
         toastr["error"]("No numbers");
         valid = false;
         check.push(valid);
 
-    } else if ((name.value).length < 2) {
+    } else if ((firstName.value).length < 2) {
         toastr["error"]("Name to short");
         valid = false;
         check.push(valid);
@@ -68,7 +63,7 @@ function validateInput() {
 
     }
 
-    if (registerEmail.value.trim() == "") {
+    if (email.value.trim() == "") {
         valid = false;
         check.push(valid);
 
@@ -76,7 +71,7 @@ function validateInput() {
     }
 
 
-    else if (!registerEmail.value.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
+    else if (!email.value.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
         valid = false;
         check.push(valid);
 
@@ -87,7 +82,7 @@ function validateInput() {
 
     }
 
-    if (registerPassword.value.trim() == "") {
+    if (password.value.trim() == "") {
         valid = false;
         check.push(valid);
 
@@ -98,7 +93,7 @@ function validateInput() {
 
         toastr["error"]("Password wrong format");
     }
-    else if (!(registerPassword.value.length >= 5 && registerPassword.value.length <= 15)) {
+    else if (!(password.value.length >= 5 && registerPassword.value.length <= 15)) {
         valid = false;
         check.push(valid);
 
@@ -107,9 +102,6 @@ function validateInput() {
     else {
         valid = true;
         check.push(valid);
-
-
-
     }
 
 
@@ -120,7 +112,7 @@ function validateInput() {
 
         toastr["error"]("Confirm password");
     }
-    if (registerPassword.value !== confirmPassword.value) {
+    if (password.value !== confirmPassword.value) {
         valid = false;
         check.push(valid);
 
@@ -134,27 +126,23 @@ function validateInput() {
     }
 
 
-    if (dataNastere.value.trim() == "") {
-
+    if (birthDate.value.trim() == "") {
         valid = false;
         check.push(valid);
-
         toastr["error"]("Date birth can't be blank");
     } else {
         valid = true;
         check.push(valid);
-
-
-
     }
+
     for (let ele of check) {
         if (ele == false) {
             return false;
 
         }
-
     }
-    let user = new User(registerEmail.value, registerPassword.value, confirmPassword.value, name.value, dataNastere.value, lastName.value);
+
+    let user = new User(firstName.value, lastName.value, email.value, password.value, birthDate.value,);
     saveUserToLocalStorage(user, localStorage.getItem("user"));
     return true;
 }
@@ -181,8 +169,9 @@ function saveUserToLocalStorage(newUser, localStorage2) {
     user = [];
     if (localStorage2) {
         user = JSON.parse(localStorage2);
+    }
 
-    } user.push(newUser);
+    user.push(newUser);
     // Convertim obiectul user într-un șir de caractere JSON
     const userString = JSON.stringify(user);
 
@@ -197,7 +186,7 @@ btnregister.addEventListener('click', btn_register);
 function btn_register() {
     let valid = false;
     if (validateInput()) {
-        window.location.href = "proiect1__login.html";
+        window.location.href = "index.html";
 
     } else {
         valid = false;
