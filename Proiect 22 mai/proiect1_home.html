@@ -17,6 +17,7 @@
 
 
     <script src="proiect1_home.js" defer></script>
+    <link rel="stylesheet" href=" style.css">
     <style>
         nav.navigation {
             background-color: rgb(217, 217, 219);
@@ -72,7 +73,8 @@
     <div class="container text-center">
         <div class="row align-items-start">
             <div class="col-3">
-                <div class="card" style="display: none;" id="addFlatForm">
+                <div class="card hide" id="addFlatForm">
+
                     <div class="card-body">
 
 
@@ -101,13 +103,13 @@
                             <div class="form-floating mb-3">
 
                                 <div class="form-check">
-                                    <input type="radio" class="form-check-input" id="validationFormCheck2"
-                                        name="radio-stacked" required>
+                                    <input type="radio" class="form-check-input" id="ac_value" name="radio-stacked"
+                                        required>
                                     <label class="form-check-label" for="validationFormCheck2">Has Ac</label>
                                 </div>
                                 <div class="form-check mb-3">
-                                    <input type="radio" class="form-check-input" id="validationFormCheck3"
-                                        name="radio-stacked" required>
+                                    <input type="radio" class="form-check-input" id="ac_value_off" name="radio-stacked"
+                                        required>
                                     <label class="form-check-label" for="validationFormCheck3">No Ac
                                     </label>
                                     <div class="invalid-feedback">More example invalid feedback text</div>
@@ -145,13 +147,13 @@
                         <!-- view Flat list-->
 
                         <table class="table table-sm">
-                            <thead>
+                            <!-- <thead>
                                 <tr>
                                     <th scope="col">informatii apartament</th>
                                     <th scope="col-2">delete</th>
                                     <th scope="col-2">favorite</th>
                                 </tr>
-                            </thead>
+                            </thead> -->
                             <tbody>
                                 <tr class="table-primary">
 
@@ -177,7 +179,7 @@
                 </div>
             </div>
             <div class="col-3" sstyle="display: none;">
-                <div class="card" style="display: none;" id="editProfileForm">
+                <div class="card hide" id="editProfileForm">
                     <div class="card-body">
 
                         <!--   my profile form-->

@@ -8,10 +8,24 @@ function ToggleCard(cardId) {
     let card = document.getElementById(cardId);
     let display = window.getComputedStyle(card).display;
 
-    if (display == "flex") {
-        card.style.display = "none"
-    } else {
-        card.style.display = "flex"
+
+    // if (display == "flex") {
+
+    //     card.classList.add('hide');
+    //     card.style.display = "none";
+
+    // } else {
+    //     card.classList.add('show');
+    //     card.style.display = "flex";
+    // }
+
+    if (card.classList.contains('hide')) {
+        card.classList.add('show');
+        card.classList.remove('hide');
+    }
+    else {
+        card.classList.add('hide');
+        card.classList.remove('show');
     }
 
     //cod short hand
