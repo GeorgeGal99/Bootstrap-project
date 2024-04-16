@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style2.css">
+  <!-- <script src="card.js" defer></script> -->
+  <!-- <script src="script.js" defer></script> -->
+  <script src="script3.js" defer></script>
+
+  <title>Interactive card details form</title>
+
+</head>
+
+<body>
+
+  <main class="main__container">
+    
+    <div class="main__background"></div>
+
+    <div class="main__cards">
+
+      <div class="front__card">
+        <svg class="card__svg" width="84" height="47" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="23.478" cy="23.5" rx="23.478" ry="23.5" fill="#fff"/><path d="M83.5 23.5c0 5.565-4.507 10.075-10.065 10.075-5.559 0-10.065-4.51-10.065-10.075 0-5.565 4.506-10.075 10.065-10.075 5.558 0 10.065 4.51 10.065 10.075Z" stroke="#fff"/></svg>
+        <div class="card__info">
+          <div id="cardNumberDisplay" class="card__number__display"></div>
+          <div class="name__and__exp">
+            <div id="cardHolderDisplay" class="card__name__display"></div>
+            <div id="expiryDateDisplay" class="card__exp__display"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="back__card">
+        <div id="backCardCvcDisplay" class="card_cvc_display"></div>
+      </div>
+      
+
+    </div>
+
+    <div class="form__container" >
+      <form id="userForm" class="user__form" >
+
+        <div class="card__name">
+          <label for="cardHolderName">CARDHOLDER NAME</label>
+          <input class="all_fields" type="text" id="cardHolderName" name="cardHolderName" required placeholder=" e.g. Jane Applessed" >
+          <div id="validateName"></div>
+        </div>
+    
+        <div class="card__number">
+          <label for="cardHolder">CARD NUMBER</label>
+          <input class="all_fields " type="text" id="cardNumber" name="cardNumber" required placeholder="e.g. 1234 5678 9123 0000">
+          <div id="validateNumber"></div>
+        </div>
+    
+        <div class="exp__and__cvc">
+
+          <div class="exp__date">
+  
+            <div class="expiry__date__name">
+              <label for="expiryDate">EXP. DATE(MM/YY)</label>
+            </div>
+
+            <div class="expiry__mouth__year">
+              <select id="expiryMonth" name="expiryMonth" class="expiry__mouth__input" required>
+                <option value="" disabled selected>MM</option>
+              </select>
+  
+              <select id="expiryYear" name="expiryYear" class="expiry__year__input" required>
+                <option value="" disabled selected>YY</option>
+              </select>  
+            </div>  
+            <div id="validateExpiryDate"></div>  
+
+          </div>
+
+          <div class="cvc__section">
+            <label for="cvcNumber">CVC</label>
+            <input class="all_fields" type="text" id="cvcNumber" name="cvcNumber" required placeholder="e.g. 123" required pattern="\d{3}" maxlength="3">
+            <div id="validateCvc"></div>
+
+          </div>
+        </div>
+
+    
+        <button type="button" onclick="confirmData()" class="confirm__button" id="confirmButton">Confirm</button>
+      </form>
+    </div>
+
+
+    <div id="thankYouMessage" style="display: none;">
+      <h2>Thank You!</h2>
+      <p>Your submission was successful.</p>
+    </div>
+
+    
+
+  </main >
+</body>
+</html>

@@ -107,6 +107,13 @@ document.getElementById("editProfile").addEventListener("submit", function (e) {
     ToggleCard("addFlatForm");
 });
 
+class NewUser {
+    constructor(apartaments) {
+
+        this.apartaments = apartaments;
+    }
+}
+
 
 
 
