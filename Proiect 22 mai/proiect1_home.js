@@ -1,3 +1,17 @@
+let city_input = document.querySelector("#city_input");
+let street_name = document.querySelector("#street_name");
+let street_number = document.querySelector("#street_number");
+let area_size = document.querySelector("#area_size");
+let ac_value_on = document.querySelector("#ac_value_on");
+let ac_value_off = document.querySelector("#ac_value_off");
+let year_built = document.querySelector("#year_built");
+let rent_price = document.querySelector("#rent_price");
+let date_available = document.querySelector("#date_available");
+let mainContainer = document.getElementById("mainContainer");
+let btnSaveFlatList = document.querySelector("#btn_save");
+btnSaveFlatList.addEventListener('click', addListCard);
+
+
 
 function ShowCard(cardId) {
     let card = document.getElementById(cardId);
@@ -114,121 +128,134 @@ class NewUser {
     }
 }
 
-let btnSaveFlatList = document.querySelector("#btn_save");
-btnSaveFlatList.addEventListener()
 
-function addListToMain() {
+function addListCard() {
     event.preventDefault();
-    let controlsInput = document.getElementById("controlsInput");
-    let mainContainer = document.getElementById("mainContainer")
-
-    if (controlsInput.value.trim() == "") {
-        alert("Please insert something!")
 
 
-    } else {
+    if (city_input.value.trim() == "") {
+        alert("Please insert city!")
+    } if (street_name.value.trim() == "") {
+        alert("Please insert street!")
+
+
+    }
+    if (street_number.value.trim() == "") {
+        alert("Please insert street number!")
+
+
+    } if (area_size.value.trim() == "") {
+        alert("Please insert area size!")
+
+
+        // } if (ac_value_on.value.trim() == "") {
+        //     alert("Please insert street!")
+
+
+        // }
+        // if (ac_value_off.value.trim() == "") {
+        //     alert("Please insert street!") 
+
+
+    } if (year_built.value.trim() == "") {
+        alert("Please insert year built!")
+
+
+    } if (rent_price.value.trim() == "") {
+        alert("Please insert rent price!")
+
+
+    } if (date_available.value.trim() == "") {
+        alert("Please insert date available from...!")
+
+
+    }
+
+    else {
         let newDiv = document.createElement("div")
         mainContainer.appendChild(newDiv);
         newDiv.classList.add("create-div");
 
-        let topDiv = document.createElement("div");
-        newDiv.appendChild(topDiv);
-        topDiv.classList.add("top-div");
+        let cardDiv = document.createElement("div");
+        newDiv.appendChild(cardDiv);
+        cardDiv.classList.add("card-div");
 
         let titleContainer = document.createElement("div");
         titleContainer.classList.add("title__container");
-        topDiv.appendChild(titleContainer);
+        cardDiv.appendChild(titleContainer);
 
 
         let divTitle = document.createElement("h2");
-        divTitle.innerText = `Title: ${controlsInput.value}`;
-        divTitle.classList.add("h2__div")
+        divTitle.innerText = `City: ${city_input.value}`;
+        divTitle.classList.add("h6_div");
         titleContainer.appendChild(divTitle);
+
+        let divTitle1 = document.createElement("h2");
+        divTitle1.innerText = `Street: ${street_name.value}`;
+        divTitle1.classList.add("h6_div");
+        titleContainer.appendChild(divTitle1);
+
+        let divTitle2 = document.createElement("h2");
+        divTitle2.innerText = `Street nr: ${street_number.value}`;
+        divTitle2.classList.add("h6_div");
+        titleContainer.appendChild(divTitle2);
+
+        let divTitle3 = document.createElement("h2");
+        divTitle13innerText = `Area size: ${area_size.value}`;
+        divTitle3.classList.add("h6_div");
+        titleContainer.appendChild(divTitle3);
+
+        let divTitle4 = document.createElement("h2");
+        divTitle4.innerText = `Has Ac: ${ac_value_on.value}`;
+        divTitle4.classList.add("h6_div");
+        titleContainer.appendChild(divTitle4);
+
+        let divTitle5 = document.createElement("h2");
+        divTitle5.innerText = `No Ac: ${ac_value_off.value}`;
+        divTitle5.classList.add("h6_div");
+        titleContainer.appendChild(divTitle5);
+
+        let divTitle6 = document.createElement("h2");
+        divTitle6.innerText = `Year built: ${year_built.value}`;
+        divTitle6.classList.add("h6_div");
+        titleContainer.appendChild(divTitle6);
+
+        let divTitle7 = document.createElement("h2");
+        divTitle7.innerText = `rent month: ${rent_price.value}`;
+        divTitle7.classList.add("h6_div");
+        titleContainer.appendChild(divTitle7);
+
+        let divTitle8 = document.createElement("h2");
+        divTitle8.innerText = `Date available: ${date_available.value}`;
+        divTitle8.classList.add("h6_div");
+        titleContainer.appendChild(divTitle8);
+
+
 
         let removeListContainer = document.createElement("div");
         removeListContainer.classList.add("remove__list__container");
-        topDiv.appendChild(removeListContainer);
+        cardDiv.appendChild(removeListContainer);
 
 
 
         let removeList = document.createElement("button");
-        removeList.innerText = "Remove List";
+        removeList.innerText = "Remove Apartment";
         removeList.classList.add("remove__list__button")
         removeListContainer.appendChild(removeList);
 
-        // removeList.addEventListener("click", function() {
-        //     newDiv.remove();
-        // });
-
-
         addRemoveListEvent(removeList, newDiv);
 
+        //  resetam campurile dupa validare ca sa fie libere pentru urmatoarea scriere
 
-
-
-        let bottomDiv = document.createElement("div");
-        newDiv.appendChild(bottomDiv);
-        bottomDiv.classList.add("bottom__div");
-
-
-        let secondInputContainer = document.createElement("div");
-        bottomDiv.appendChild(secondInputContainer);
-        secondInputContainer.classList.add("second__input__container");
-
-
-
-        let newInput = document.createElement("input");
-        secondInputContainer.appendChild(newInput);
-        newInput.classList.add("second__input")
-        newInput.type = "text";
-        newInput.placeholder = 'Insert your list';
-
-
-        let secondAddButtonContainer = document.createElement("div");
-        secondAddButtonContainer.classList.add("second__add__button__container");
-        bottomDiv.appendChild(secondAddButtonContainer);
-
-
-
-        let addSecondListButton = document.createElement("button");
-        addSecondListButton.innerText = "Add Item";
-        addSecondListButton.classList.add("second__button");
-        secondAddButtonContainer.appendChild(addSecondListButton);
-
-        addSecondListButton.addEventListener("click", function () {
-            if (newInput.value.trim() != "") {
-
-                let newUl = document.createElement("ul");
-                let newItem = document.createElement("li");
-                let removeItem = document.createElement("span");
-
-                newItem.classList.add("list__item");
-                newUl.classList.add("list__ul")
-                newDiv.appendChild(newUl);
-                newUl.appendChild(newItem);
-                newItem.innerText = newInput.value;
-
-
-                removeItem.innerText = "x";
-                removeItem.classList.add("remove__each__item");
-                newItem.appendChild(removeItem);
-
-
-                removeItem.addEventListener('click', function () {
-                    newItem.remove();
-                })
-
-                newInput.value = "";
-            } else {
-                alert("Insert something!")
-            }
-        });
-
-
-
-        controlsInput.value = "";
-
-
+        city_input.value = "";
+        street_name.value = "";
+        street_number.value = "";
+        area_size.value = "";
+        ac_value_on.value = "";
+        ac_value_off.value = "";
+        year_built.value = "";
+        rent_price.value = "";
+        date_available.value = "";
     }
 }
 

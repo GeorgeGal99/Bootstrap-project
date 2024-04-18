@@ -17,8 +17,6 @@ function login() {
     } else if (!validEmail(loginEmail.value.trim())) {
         toastr["error"]("ups,something wrong!");
         valid = false;
-    } else {
-        toastr["success"]("Login Successful", "Hello!")
     }
     if (loginPassword.value.trim() === "") {
         toastr["error"]("ups,something wrong!");
@@ -27,8 +25,6 @@ function login() {
     } else if (loginPassword.value.length < 5) {
         toastr["error"]("ups,something wrong!");
         valid = false;
-    } else {
-        toastr["success"]("Login Successful", "Hello!");
     }
 
     if (valid) {
@@ -61,11 +57,6 @@ function loginUser() {
     }
     alert("Invalid email or password. Please try again.");
 }
-
-
-
-
-
 
 
 toastr.options = {

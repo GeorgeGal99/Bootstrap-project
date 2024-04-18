@@ -8,3 +8,29 @@
     opacity: 1;
     transition: opacity 1s linear;
 }
+
+.remove__list__button {
+    background-color: #dc3545;
+    color: black;
+    height: 30px;
+    border-radius: 8%;
+}
+
+.h6_div {
+    text-align: left;
+    font-size: 15px;
+}
+
+nav.navigation {
+    background-color: rgb(217, 217, 219);
+}
+
+nav.navigation div.p-3 {
+    margin-left: 30px;
+
+}
+
+body {
+    background-color: #e1e6ee;
+
+}
