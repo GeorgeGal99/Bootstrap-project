@@ -49,3 +49,8 @@ body {
 .create-div {
     padding: 0.5rem 0 0.5rem 0.5rem;
 }
+
+#viewFlatList {
+    height: 600px;
+    overflow-x: auto;
+}

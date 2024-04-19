@@ -9,7 +9,7 @@ let user = [];
 lastName = document.querySelector("#lastName")
 
 
-function validateInput() {
+function btn_register() {
     check = [];
     valid = false;
     class User {
@@ -143,9 +143,30 @@ function validateInput() {
     }
 
     let user = new User(firstName.value, lastName.value, email.value, password.value, birthDate.value,);
-    saveUserToLocalStorage(user, localStorage.getItem("user"));
-    return true;
+
+    // Citim lista de utilizatori din localstorage
+    let users = JSON.parse(localStorage.getItem("users") || "[]");
+
+    for (let registered_user of users) {
+        if (registered_user.email == user.email) {
+            toastr["error"](" Email " + user.email + " allready exists");
+            valid = false;
+            check.push(valid);
+
+            // Previne salvarea utilizatorului in localstorate
+            return false
+        }
+    }
+
+    // Adaugam userul in listate de utilizatori in array-ul de utilizatori
+    users.push(user);
+
+    // salvam lista de utiliatori in localstorage
+    localStorage.setItem('users', JSON.stringify(users));
+
+    window.location.href = "index.html";
 }
+
 
 dataNastere.addEventListener('change', () => {
     const enteredDate = new Date(dataNastere.value);
@@ -165,34 +186,12 @@ dataNastere.addEventListener('change', () => {
 
 
 
-function saveUserToLocalStorage(newUser, localStorage2) {
-    user = [];
-    if (localStorage2) {
-        user = JSON.parse(localStorage2);
-    }
 
-    user.push(newUser);
-    // Convertim obiectul user într-un șir de caractere JSON
-    const userString = JSON.stringify(user);
-
-    // Salvăm șirul de caractere în localStorage
-    localStorage.setItem('user', userString);
-    toastr["success"]("Register Succefull");
-}
 
 
 btnregister.addEventListener('click', btn_register);
 
-function btn_register() {
-    let valid = false;
-    if (validateInput()) {
-        window.location.href = "index.html";
 
-    } else {
-        valid = false;
-        toastr["error"]("completeaza toate campurile");
-    }
-}
 
 toastr.options = {
     "closeButton": false,

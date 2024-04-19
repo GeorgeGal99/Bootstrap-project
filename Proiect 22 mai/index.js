@@ -46,7 +46,7 @@ function validEmail(email) {
 
 
 function loginUser() {
-    let users = JSON.parse(localStorage.getItem("user")) || [];
+    let users = JSON.parse(localStorage.getItem("users")) || [];
     let email = loginEmail.value.trim();
     let password = loginPassword.value.trim();
     for (let user of users) {

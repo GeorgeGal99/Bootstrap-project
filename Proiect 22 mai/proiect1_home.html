@@ -27,7 +27,7 @@
 
         <div class="d-flex flex-row mb-3">
             <div class="p-3">
-                <button type="button" class="btn btn-outline-dark" onclick="ToggleCard('addFlatForm')"
+                <button type="button" class="btn btn-outline-dark" onclick="ToggleCard('addFlatFormContent')"
                     style="--bs-btn-padding-y: .45rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                     Add New Flat
                 </button>
@@ -46,9 +46,8 @@
                 </button>
             </div>
 
-
             <div class="p-3 ms-auto">
-                <span>Hello user</span>
+                <span>Hello, <span id="username"></span></span>
                 <button type="button" class="btn btn-danger" id="btn_logout" onclick="logoutBtn()"
                     style="--bs-btn-padding-y: .45rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Logout</button>
             </div>
@@ -59,7 +58,7 @@
     <div class="container text-center">
         <div class="row align-items-start">
             <div class="col-4">
-                <div class="card hide" id="addFlatForm">
+                <div class="card hide" id="addFlatFormContent">
 
                     <div class="card-body">
 
@@ -89,13 +88,13 @@
                             <div class="form-floating mb-3">
 
                                 <div class="form-check">
-                                    <input type="radio" class="form-check-input" id="ac_value_on" name="radio-stacked"
-                                        required>
+                                    <input type="radio" class="form-check-input" id="has_ac_on" name="has_ac"
+                                        value="Yes" required>
                                     <label class="form-check-label" for="validationFormCheck2">Has Ac</label>
                                 </div>
                                 <div class="form-check mb-3">
-                                    <input type="radio" class="form-check-input" id="ac_value_off" name="radio-stacked"
-                                        required>
+                                    <input type="radio" class="form-check-input" id="has_ac_off" name="has_ac"
+                                        value="No" required>
                                     <label class="form-check-label" for="validationFormCheck3">No Ac
                                     </label>
                                     <div class="invalid-feedback">More example invalid feedback text</div>
@@ -129,38 +128,8 @@
                 <div class="container" id="viewFlatList">
                     <div class="container cards-container" id="mainContainer">
 
-
                         <!-- view Flat list-->
 
-                        <!-- <table class="table table-sm">
-                         <thead>
-                                <tr>
-                                    <th scope="col">informatii apartament</th>
-                                    <th scope="col-2">delete</th>
-                                    <th scope="col-2">favorite</th>
-                                </tr>
-                            </thead> -->
-                        <!-- <tbody>
-                            <tr class="table-primary"> -->
-
-
-                        <!-- <th scope="col">City</th>
-                                    <th scope="col-2">Price</th> -->
-                        <!-- <th scope="col-2">Size</th> -->
-
-                        <!-- <td> <button type="button" class="btn btn-danger"
-                                            id="btn_delete_item">&#x1F5D1;</button>
-                                    </td>
-                                    <td> <button type="button" class="btn btn-warning" id="btn_favorite_item">
-                                            &#x2B50;</button>
-                                    </td> -->
-                        <!-- </tr>
-
-
-
-
-                        </tbody>
-                        </table> -->
                     </div>
                 </div>
             </div>
@@ -206,7 +175,24 @@
     </div>
 
 
-
+    <template id="flatAddTemplate">
+        <div class="create-div card">
+            <div class="card-div">
+                <div class="title__container">
+                    <h2 class="h6_div">City: <span title="city"></span></h2>
+                    <h2 class="h6_div">Street: <span title="street_name"></span></h2>
+                    <h2 class="h6_div">Street nr: <span title="street_number"></span></h2>
+                    <h2 class="h6_div">Area size: <span title="area_size"></span></h2>
+                    <h2 class="h6_div">Has AC: <span title="has_ac"></span></h2>
+                    <h2 class="h6_div">Year built: <span title="year_built"></span></h2>
+                    <h2 class="h6_div">rent month: <span title="rent_price"></span></h2>
+                    <h2 class="h6_div">Date available: <span title="date_available"></span></h2>
+                </div>
+                <button type="button" class="btn btn-primary btn-sm" id="removeFlat">Remove</button>
+                <button type="button" class="btn btn-primary btn-sm" id="addToFavorite">Favorit</button>
+            </div>
+        </div>
+    </template>
 
 
 

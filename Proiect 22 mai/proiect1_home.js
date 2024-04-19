@@ -8,8 +8,8 @@ let year_built = document.querySelector("#year_built");
 let rent_price = document.querySelector("#rent_price");
 let date_available = document.querySelector("#date_available");
 let mainContainer = document.getElementById("mainContainer");
-let btnSaveFlatList = document.querySelector("#btn_save");
-btnSaveFlatList.addEventListener('click', addListCard);
+//let btnSaveFlatList = document.querySelector("#btn_save");
+//btnSaveFlatList.addEventListener('click', addListCard);
 
 
 
@@ -48,6 +48,7 @@ function ToggleCard(cardId) {
 
 document.getElementById("addFlatForm").addEventListener("submit", function (e) {
     e.preventDefault();
+    console.log("submit addFlatForm")
     //pentru toate elem din forma,mai putin btn Submit,citim valoarile
     let ad = {}
 
@@ -58,34 +59,185 @@ document.getElementById("addFlatForm").addEventListener("submit", function (e) {
         switch (e.target[i].id) {
             case "city_input":
                 ad.city = e.target[i].value;
+                break
             case "street_name":
                 ad.street_name = e.target[i].value;
+                break
             case "street_number":
                 ad.street_number = e.target[i].value;
+                break
             case "area_size":
                 ad.area_size = e.target[i].value;
-            case "has_ac":
-                ad.has_ac = e.target[i].value;
+                break
+            case "has_ac_on":
+            case "has_ac_off":
+                if (e.target[i].checked) {
+                    ad.has_ac = e.target[i].value;
+                }
+                break
             case "year_built":
                 ad.year_built = e.target[i].value;
+                break
             case "rent_price":
                 ad.rent_price = e.target[i].value;
-            case "date_avilable":
-                ad.date_avilable = e.target[i].value;
+                break
+            case "date_available":
+                ad.date_available = e.target[i].value;
+                break
+            default:
+                console.log("warning: missing attribute: ", e.target[i])
         }
 
     }
 
+    //console.log(ad);
+
+    if (ad.city.trim() == "") {
+        alert("Please insert city!")
+
+        return
+    }
+    if (ad.street_name.trim() == "") {
+        alert("Please insert street!")
+        return
+    }
+
+    if (ad.street_number.trim() == "") {
+        alert("Please insert street number!")
+        return
+    }
+
+    if (ad.area_size.trim() == "") {
+        alert("Please insert area size!")
+
+        return
+    }
+
+    if (ad.year_built.trim() == "") {
+        alert("Please insert year built!")
+
+        return
+    }
+
+    if (ad.rent_price.trim() == "") {
+        alert("Please insert rent price!")
+
+        return
+    }
+
+    // Obtinem adresa de email a userului logat
+    let user_email = localStorage.getItem("currentUserEmail");
+
+    // Keie stocare anunturi per user
+    let ads_key = "ads-" + user_email;
+
     // incarcam lista de anunturi din local storage
-    let ads = JSON.parse(localStorage.getItem("ads") || "[]");
+    let ads = JSON.parse(localStorage.getItem(ads_key) || "[]");
     //adaugam unnanunt in lista(array);
     ads.push(ad);
+    // Adaugam anuntul in html
+    AddFlatToList(ads.length - 1, ad);
+
     // Salvam lista de anunturi
-    localStorage.setItem("ads", JSON.stringify(ads));
+    localStorage.setItem(ads_key, JSON.stringify(ads));
+
     e.target.reset();
-    ToggleCard("addFlatForm");
+    //ToggleCard("addFlatForm");
 });
 
+function AddFlatToList(index, flat) {
+    // cautam template-ul
+    const template = document.querySelector("#flatAddTemplate");
+    // clonam template-ul 
+    const clone = template.content.cloneNode(true);
+
+    // Cautam toate elementele span
+    let placeholders = clone.querySelectorAll("span");
+    for (let placeholder of placeholders) {
+        // Ne asiguram ca span are setat keya obiectului in proprietatea title
+        if (placeholder.title.trim() != "") {
+            placeholder.innerText = flat[placeholder.title]
+        }
+    }
+
+    let buttons = clone.querySelectorAll("button");
+    for (let button of buttons) {
+        if (button.id == "removeFlat") {
+            button.addEventListener("click", function () {
+                RemoveFlatFromList(index)
+            });
+        }
+        if (button.id == "addToFavorite") {
+            button.addEventListener("click", function () {
+                AddToFavorite(index)
+            });
+        }
+    }
+
+    // Adaugam anuntul in lista 
+    mainContainer.appendChild(clone);
+}
+
+function RemoveFlatFromList(index) {
+    // Obtinem adresa de email a userului logat
+    let user_email = localStorage.getItem("currentUserEmail");
+
+    // Keie stocare anunturi per user
+    let ads_key = "ads-" + user_email;
+
+    // incarcam lista de anunturi din local storage
+    let ads = JSON.parse(localStorage.getItem(ads_key) || "[]");
+    let newAds = []
+    for (let i = 0; i < ads.length; i++) {
+        if (i != index) {
+            newAds.push(ads[i])
+        }
+    }
+
+    // Salvam lista de anunturi
+    localStorage.setItem(ads_key, JSON.stringify(newAds));
+
+    mainContainer.innerHTML = ""
+
+    for (let index = 0; index < newAds.length; index++) {
+        AddFlatToList(index, newAds[index])
+    }
+
+}
+
+
+
+// Cand se termina de incarcat pagina html
+document.addEventListener("DOMContentLoaded", (event) => {
+
+    // incarcam adresa de email a utilizatorului authentificat
+    let curent_user_email = localStorage.getItem("currentUserEmail");
+
+    // Guard page for unauthenticated users
+    if (curent_user_email === null) {
+        document.location = "index.html"
+    }
+
+    // incarcam lista de utilizatori
+    let users = JSON.parse(localStorage.getItem("users") || "[]");
+
+    // iteram prin lista de utilizatori si cautam userul cu adresa de email
+    for (let user of users) {
+        if (user.email === curent_user_email) {
+            document.getElementById("username").innerText = user.first_name + " " + user.last_name
+
+            // Iesim din bucla dupa primult utilizator gasit
+            break
+        }
+    }
+
+    let ads = JSON.parse(localStorage.getItem("ads-" + curent_user_email) || "[]");
+
+    for (let index = 0; index < ads.length; index++) {
+        AddFlatToList(index, ads[index])
+    }
+
+});
 
 document.getElementById("editProfile").addEventListener("submit", function (e) {
     e.preventDefault();
@@ -99,172 +251,73 @@ document.getElementById("editProfile").addEventListener("submit", function (e) {
         switch (e.target[i].id) {
             case "email_profile":
                 user.email = e.target[i].value;
+                break
             case "password_profile":
                 user.password = e.target[i].value;
+                break
             case "first_name":
                 user.first_name = e.target[i].value;
+                break
             case "last_name":
                 user.last_name = e.target[i].value;
+                break
             case "data_nastere":
                 user.data_nastere = e.target[i].value;
+                break
+            default:
+                console.log("warning: missing attribute: ", e.target[i])
 
         }
     }
 
     // incarcam lista de anunturi din local storage
-    let ads = JSON.parse(localStorage.getItem("ads") || "[]");
-    //adaugam unnanunt in lista(array);
-    ads.push(ad);
+    let users = JSON.parse(localStorage.getItem("users") || "[]");
+
+    // Obtinem adresa de email a userului logat
+    let user_email = localStorage.getItem("currentUserEmail");
+
+    //
+    for (let registered_user of users) {
+        if (registered_user.email == user.email) {
+            alert("adresa deja exista")
+
+            // guard duplicate email address
+            return
+        }
+    }
+
+    // Iteram prin useri si gasim userul dupa adresa de email a utilizatorului authentificat
+    for (let i = 0; i < users.length; i++) {
+        if (users[i].email == user_email) {
+            users[i].email = user.email
+            users[i].first_name = user.first_name
+            users[i].last_name = user.last_name
+            users[i].password = user.password
+            users[i].data_nastere = user.data_nastere
+
+            // acutalizam adresa de email a utilizatorului autentificat cu noua valoare
+            if (user_email != user.email) {
+                localStorage.setItem("currentUserEmail", user.email)
+                localStorage.setItem("ads-" + user.email, localStorage.getItem("ads-" + user_email));
+                localStorage.removeItem("ads-" + user_email)
+            }
+        }
+    }
+
     // Salvam lista de anunturi
-    localStorage.setItem("ads", JSON.stringify(ads));
+    localStorage.setItem("users", JSON.stringify(users));
     e.target.reset();
+
     ToggleCard("addFlatForm");
 });
 
-class NewUser {
-    constructor(apartaments) {
 
-        this.apartaments = apartaments;
-    }
+function logoutBtn() {
+    localStorage.removeItem("currentUserEmail")
+    document.location = "index.html"
+
 }
 
-
-function addListCard() {
-    event.preventDefault();
-
-
-    if (city_input.value.trim() == "") {
-        alert("Please insert city!")
-    } if (street_name.value.trim() == "") {
-        alert("Please insert street!")
-
-
-    }
-    if (street_number.value.trim() == "") {
-        alert("Please insert street number!")
-
-
-    } if (area_size.value.trim() == "") {
-        alert("Please insert area size!")
-
-
-        // } if (ac_value_on.value.trim() == "") {
-        //     alert("Please insert street!")
-
-
-        // }
-        // if (ac_value_off.value.trim() == "") {
-        //     alert("Please insert street!") 
-
-
-    } if (year_built.value.trim() == "") {
-        alert("Please insert year built!")
-
-
-    } if (rent_price.value.trim() == "") {
-        alert("Please insert rent price!")
-
-
-    } if (date_available.value.trim() == "") {
-        alert("Please insert date available from...!")
-
-
-    }
-
-    else {
-        let newDiv = document.createElement("div")
-        mainContainer.appendChild(newDiv);
-        newDiv.classList.add("create-div");
-        newDiv.classList.add("card");
-        // newDiv.style.backgroundColor = "#" + Math.floor(Math.random() * 16777215).toString(18);
-        let cardDiv = document.createElement("div");
-        newDiv.appendChild(cardDiv);
-        cardDiv.classList.add("card-div");
-
-        let titleContainer = document.createElement("div");
-        titleContainer.classList.add("title__container");
-        cardDiv.appendChild(titleContainer);
-
-
-        let divTitle = document.createElement("h2");
-        divTitle.innerText = `City: ${city_input.value}`;
-        divTitle.classList.add("h6_div");
-        titleContainer.appendChild(divTitle);
-
-        let divTitle1 = document.createElement("h2");
-        divTitle1.innerText = `Street: ${street_name.value}`;
-        divTitle1.classList.add("h6_div");
-        titleContainer.appendChild(divTitle1);
-
-        let divTitle2 = document.createElement("h2");
-        divTitle2.innerText = `Street nr: ${street_number.value}`;
-        divTitle2.classList.add("h6_div");
-        titleContainer.appendChild(divTitle2);
-
-        let divTitle3 = document.createElement("h2");
-        divTitle13innerText = `Area size: ${area_size.value}`;
-        divTitle3.classList.add("h6_div");
-        titleContainer.appendChild(divTitle3);
-
-        let divTitle4 = document.createElement("h2");
-        divTitle4.innerText = `Has Ac: ${ac_value_on.value}`;
-        divTitle4.classList.add("h6_div");
-        titleContainer.appendChild(divTitle4);
-
-        let divTitle5 = document.createElement("h2");
-        divTitle5.innerText = `No Ac: ${ac_value_off.value}`;
-        divTitle5.classList.add("h6_div");
-        titleContainer.appendChild(divTitle5);
-
-        let divTitle6 = document.createElement("h2");
-        divTitle6.innerText = `Year built: ${year_built.value}`;
-        divTitle6.classList.add("h6_div");
-        titleContainer.appendChild(divTitle6);
-
-        let divTitle7 = document.createElement("h2");
-        divTitle7.innerText = `rent month: ${rent_price.value}`;
-        divTitle7.classList.add("h6_div");
-        titleContainer.appendChild(divTitle7);
-
-        let divTitle8 = document.createElement("h2");
-        divTitle8.innerText = `Date available: ${date_available.value}`;
-        divTitle8.classList.add("h6_div");
-        titleContainer.appendChild(divTitle8);
-
-
-
-        let removeListContainer = document.createElement("div");
-        removeListContainer.classList.add("remove__list__container");
-        cardDiv.appendChild(removeListContainer);
-
-
-
-        let removeList = document.createElement("button");
-        removeList.classList.add("remove__list__button")
-        removeList.innerText = "Remove";
-        removeListContainer.appendChild(removeList);
-
-
-        addRemoveListEvent(removeList, newDiv);
-
-
-
-
-
-
-        //  resetam campurile dupa validare ca sa fie libere pentru urmatoarea scriere
-
-        city_input.value = "";
-        street_name.value = "";
-        street_number.value = "";
-        area_size.value = "";
-        ac_value_on.value = "";
-        ac_value_off.value = "";
-        year_built.value = "";
-        rent_price.value = "";
-        date_available.value = "";
-    }
-}
 
 function addRemoveListEvent(removeList, newDiv) {
     removeList.addEventListener("click", function () {
