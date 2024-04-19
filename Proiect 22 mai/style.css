@@ -13,12 +13,16 @@
     background-color: #dc3545;
     color: black;
     height: 30px;
-    border-radius: 8%;
+    width: 70px;
+    display: flex;
+    align-items: flex-start;
+
+    border-radius: 15%;
 }
 
 .h6_div {
     text-align: left;
-    font-size: 15px;
+    font-size: 13px;
 }
 
 nav.navigation {
@@ -33,4 +37,15 @@ nav.navigation div.p-3 {
 body {
     background-color: #e1e6ee;
 
+}
+
+.cards-container {
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+
+}
+
+.create-div {
+    padding: 0.5rem 0 0.5rem 0.5rem;
 }

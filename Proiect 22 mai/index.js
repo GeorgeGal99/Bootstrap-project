@@ -6,29 +6,34 @@ let loginBtn = document.querySelector("#btn_login");
 
 loginBtn.addEventListener('click', login);
 
-function login() {
-
+function login(e) {
+    e.preventDefault()
 
     let valid = true;
 
     if (loginEmail.value.trim() === "") {
-        toastr["error"]("ups,something wrong!");
+        // toastr["error"]("ups,something wrong!");
         valid = false;
     } else if (!validEmail(loginEmail.value.trim())) {
-        toastr["error"]("ups,something wrong!");
+        // toastr["error"]("ups,something wrong!");
         valid = false;
     }
     if (loginPassword.value.trim() === "") {
-        toastr["error"]("ups,something wrong!");
+        // toastr["error"]("ups,something wrong!");
         valid = false;
 
     } else if (loginPassword.value.length < 5) {
-        toastr["error"]("ups,something wrong!");
+        // toastr["error"]("ups,something wrong!");
         valid = false;
     }
 
+
+
+
     if (valid) {
         loginUser();
+    } else {
+        toastr["error"]("ups,something wrong!");
     }
 
 };
@@ -67,7 +72,7 @@ toastr.options = {
     "positionClass": "toast-top-center",
     "preventDuplicates": false,
     "onclick": null,
-    "showDuration": "300",
+    "showDuration": "3000",
     "hideDuration": "1000",
     "timeOut": "5000",
     "extendedTimeOut": "1000",

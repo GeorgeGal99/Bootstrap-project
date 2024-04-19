@@ -175,7 +175,8 @@ function addListCard() {
         let newDiv = document.createElement("div")
         mainContainer.appendChild(newDiv);
         newDiv.classList.add("create-div");
-
+        newDiv.classList.add("card");
+        // newDiv.style.backgroundColor = "#" + Math.floor(Math.random() * 16777215).toString(18);
         let cardDiv = document.createElement("div");
         newDiv.appendChild(cardDiv);
         cardDiv.classList.add("card-div");
@@ -239,11 +240,17 @@ function addListCard() {
 
 
         let removeList = document.createElement("button");
-        removeList.innerText = "Remove Apartment";
         removeList.classList.add("remove__list__button")
+        removeList.innerText = "Remove";
         removeListContainer.appendChild(removeList);
 
+
         addRemoveListEvent(removeList, newDiv);
+
+
+
+
+
 
         //  resetam campurile dupa validare ca sa fie libere pentru urmatoarea scriere
 
