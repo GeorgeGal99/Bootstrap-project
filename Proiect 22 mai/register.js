@@ -172,12 +172,17 @@ dataNastere.addEventListener('change', () => {
     const enteredDate = new Date(dataNastere.value);
     const currentDate = new Date();
 
+    const varstaMinima = 18;
+
+    // Calculează diferența de ani între data curentă și data de naștere
+    const diferentaAni = currentDate.getFullYear() - enteredDate.getFullYear();
+
+
     if (enteredDate <= currentDate) {
-        console.log('Data de naștere este validă.');
-        // toastr["error"]("data de nastere nu este valida!");
 
-
-    } else if (eighteenYearsAgo) {
+        console.log("it,s ok");
+    }
+    else {
         dataNastere.value = "";
         toastr["error"]("You are not the terminator!");
 
@@ -185,16 +190,25 @@ dataNastere.addEventListener('change', () => {
         return
     }
 
+    if (diferentaAni >= varstaMinima) {
+        // Stochează datele utilizatorului sau efectuează alte acțiuni
+        console.log("Utilizatorul este eligibil pentru înregistrare.");
+
+
+    } else {
+        toastr["error"]("nu ai 18 ani!");
+
+        return
+    }
+
+
+
+
 });
 
-const eighteenYearsAgo = () => {
-    const enteredDate = new Date()
-    let dd = String(enteredDate.getDate()).padStart(2, 0)
-    let mm = String(enteredDate.getMonth() + 1).padStart(2, 0)
-    let yyyy = today.getFullYear() - 18;
 
-    return `${yyyy}-${mm}-${dd}`
-}
+
+
 
 
 
