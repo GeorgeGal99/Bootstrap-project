@@ -156,22 +156,43 @@ function btn_register() {
             // Previne salvarea utilizatorului in localstorate
             return false
         }
+    } if (dataValida) {
+
+
+
+        // Adaugam userul in listate de utilizatori in array-ul de utilizatori
+        users.push(user);
+
+        // salvam lista de utiliatori in localstorage
+        localStorage.setItem('users', JSON.stringify(users));
+        dataValida = false;
+        window.location.href = "index.html";
     }
 
-    // Adaugam userul in listate de utilizatori in array-ul de utilizatori
-    users.push(user);
-
-    // salvam lista de utiliatori in localstorage
-    localStorage.setItem('users', JSON.stringify(users));
-
-    window.location.href = "index.html";
 }
-
+let dataValida = false;
 
 dataNastere.addEventListener('change', () => {
+    toastr.options = {
+        "closeButton": false,
+        "debug": true,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "toast-top-center",
+        "preventDuplicates": true,
+        "onclick": null,
+        "showDuration": "3000",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+
     const enteredDate = new Date(dataNastere.value);
     const currentDate = new Date();
-
     const varstaMinima = 18;
 
     // Calculează diferența de ani între data curentă și data de naștere
@@ -179,11 +200,12 @@ dataNastere.addEventListener('change', () => {
 
 
     if (enteredDate <= currentDate) {
-
+        dataValida = true;
         console.log("it,s ok");
     }
     else {
         dataNastere.value = "";
+        dataValida = false;
         toastr["error"]("You are not the terminator!");
 
 
@@ -193,9 +215,10 @@ dataNastere.addEventListener('change', () => {
     if (diferentaAni >= varstaMinima) {
         // Stochează datele utilizatorului sau efectuează alte acțiuni
         console.log("Utilizatorul este eligibil pentru înregistrare.");
-
+        dataValida = true;
 
     } else {
+        dataValida = false;
         toastr["error"]("nu ai 18 ani!");
 
         return

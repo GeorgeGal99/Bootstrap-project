@@ -81,7 +81,7 @@ document.getElementById("addFlatForm").addEventListener("submit", function (e) {
     //console.log(ad);
 
     if (ad.city.trim() == "") {
-        // toastr["error"]("ciy");
+        toastr["error"]("ciy");
         alert("Please insert city!")
 
         return
@@ -132,6 +132,7 @@ document.getElementById("addFlatForm").addEventListener("submit", function (e) {
         alert("Please insert year built!")
 
         return
+
     } else if (!year_built.value.match(/^[0-9]+$/)) {
         alert("Year built,no leters");
 
@@ -363,7 +364,7 @@ toastr.options = {
     "debug": false,
     "newestOnTop": false,
     "progressBar": true,
-    "positionClass": "toast-top-right",
+    "positionClass": "toast-top-center",
     "preventDuplicates": false,
     "onclick": null,
     "showDuration": "3000",
