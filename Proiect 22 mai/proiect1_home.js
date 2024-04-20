@@ -8,8 +8,8 @@ let year_built = document.querySelector("#year_built");
 let rent_price = document.querySelector("#rent_price");
 let date_available = document.querySelector("#date_available");
 let mainContainer = document.getElementById("mainContainer");
-//let btnSaveFlatList = document.querySelector("#btn_save");
-//btnSaveFlatList.addEventListener('click', addListCard);
+let regexLeters = /^[a-zA-Z]+$/;
+let regexNumbers = /^[0-9]+$/;
 
 
 
@@ -20,18 +20,7 @@ function ShowCard(cardId) {
 
 function ToggleCard(cardId) {
     let card = document.getElementById(cardId);
-    // let display = window.getComputedStyle(card).display;
 
-
-    // if (display == "flex") {
-
-    //     card.classList.add('hide');
-    //     card.style.display = "none";
-
-    // } else {
-    //     card.classList.add('show');
-    //     card.style.display = "flex";
-    // }
 
     if (card.classList.contains('hide')) {
         card.classList.add('show');
@@ -42,13 +31,12 @@ function ToggleCard(cardId) {
         card.classList.remove('show');
     }
 
-    //cod short hand
-    // card.style.display = display == "flex" ? "none" : "flex";
+
 }
 
 document.getElementById("addFlatForm").addEventListener("submit", function (e) {
     e.preventDefault();
-    console.log("submit addFlatForm")
+    // console.log("submit addFlatForm")
     //pentru toate elem din forma,mai putin btn Submit,citim valoarile
     let ad = {}
 
@@ -93,36 +81,73 @@ document.getElementById("addFlatForm").addEventListener("submit", function (e) {
     //console.log(ad);
 
     if (ad.city.trim() == "") {
+        // toastr["error"]("ciy");
         alert("Please insert city!")
 
         return
+
+    } else if (!city_input.value.match(/^[a-zA-Z]+$/)) {
+        alert("city name ,no numbers!");
+
+        return
+
     }
     if (ad.street_name.trim() == "") {
-        alert("Please insert street!")
+        alert("Please insert street!");
+
+
+        return
+
+    } else if (!street_name.value.match(/^[a-zA-Z]+$/)) {
+        alert("street name,no numbers!");
+
+
         return
     }
 
     if (ad.street_number.trim() == "") {
         alert("Please insert street number!")
+
+
         return
+    } else if (!street_number.value.match(/^[0-9]+$/)) {
+        alert("Street nr,no leters");
+
+        return
+
     }
 
     if (ad.area_size.trim() == "") {
         alert("Please insert area size!")
 
         return
+    } else if (!area_size.value.match(/^[0-9]+$/)) {
+        alert("Area size,no leters");
+
+        return
+
     }
 
     if (ad.year_built.trim() == "") {
         alert("Please insert year built!")
 
         return
+    } else if (!year_built.value.match(/^[0-9]+$/)) {
+        alert("Year built,no leters");
+
+        return
+
     }
 
     if (ad.rent_price.trim() == "") {
         alert("Please insert rent price!")
 
         return
+    } else if (!rent_price.value.match(/^[0-9]+$/)) {
+        alert("Rent price,no leters");
+
+        return
+
     }
 
     // Obtinem adresa de email a userului logat
@@ -326,3 +351,27 @@ function addRemoveListEvent(removeList, newDiv) {
 }
 
 
+
+
+
+
+
+
+
+toastr.options = {
+    "closeButton": false,
+    "debug": false,
+    "newestOnTop": false,
+    "progressBar": true,
+    "positionClass": "toast-top-right",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "3000",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+}

@@ -174,15 +174,27 @@ dataNastere.addEventListener('change', () => {
 
     if (enteredDate <= currentDate) {
         console.log('Data de naștere este validă.');
-    } else {
+        // toastr["error"]("data de nastere nu este valida!");
+
+
+    } else if (eighteenYearsAgo) {
         dataNastere.value = "";
         toastr["error"]("You are not the terminator!");
+
+
         return
     }
 
 });
 
+const eighteenYearsAgo = () => {
+    const enteredDate = new Date()
+    let dd = String(enteredDate.getDate()).padStart(2, 0)
+    let mm = String(enteredDate.getMonth() + 1).padStart(2, 0)
+    let yyyy = today.getFullYear() - 18;
 
+    return `${yyyy}-${mm}-${dd}`
+}
 
 
 
@@ -201,7 +213,7 @@ toastr.options = {
     "positionClass": "toast-top-center",
     "preventDuplicates": false,
     "onclick": null,
-    "showDuration": "300",
+    "showDuration": "3000",
     "hideDuration": "1000",
     "timeOut": "5000",
     "extendedTimeOut": "1000",
@@ -211,16 +223,3 @@ toastr.options = {
     "hideMethod": "fadeOut"
 }
 
-// let emailExists = user.some(user => user.email === registerEmail);
-// } if (registerEmail.value) {
-//     user = JSON.parse(localStorage.getItem('user') || '[]');
-
-// } if (emailExists) {
-//     console.log('Această adresă de e-mail este deja înregistrată.');
-// }
-// } else {
-//     // Adaugă utilizatorul în lista de utilizatori
-//     // newUser = { name: 'Nume utilizator', email: enteredEmail };
-//     user.push(newUser);
-//     // localStorage.setItem('user', JSON.stringify(user));
-// }
