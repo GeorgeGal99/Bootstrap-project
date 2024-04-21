@@ -54,3 +54,67 @@ body {
     height: 600px;
     overflow-x: auto;
 }
+
+.card-view-flat {
+    /* background-color: aquamarine; */
+
+}
+
+@media(max-width :450px) {
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    .Principal-Container {
+        display: flex;
+        flex-direction: column;
+        margin-left: 60px;
+
+    }
+
+    .card-body {
+        background-color: aqua;
+
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        width: 300px;
+
+    }
+
+    .create-div {
+        background-color: #dc3545;
+
+
+    }
+
+
+
+    .container.show {
+        display: flex;
+
+        flex-direction: column;
+        text-align: center;
+        width: 300px;
+
+    }
+
+    .cards-container {
+        background-color: blue;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+    }
+
+    .card-right {
+        display: flex;
+        margin-right: 150px;
+    }
+
+    .card-view-flat {
+        margin-right: 250px;
+    }
+
+}
