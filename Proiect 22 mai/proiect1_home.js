@@ -20,17 +20,32 @@ function ShowCard(cardId) {
 
 function ToggleCard(cardId) {
     let card = document.getElementById(cardId);
+    let docSize = window.screen.width;
+    console.log(docSize);
 
+    if (docSize > 450) {
+        card.style.display = "block";
+        if (card.classList.contains('hide')) {
+            card.classList.add('show');
+            card.classList.remove('hide');
 
-    if (card.classList.contains('hide')) {
-        card.classList.add('show');
-        card.classList.remove('hide');
+        }
+        else {
+            card.classList.add('hide');
+            card.classList.remove('show');
+        }
+    } else {
+        if (card.classList.contains('hide')) {
+            card.classList.add('show');
+            card.classList.remove('hide');
+            card.style.display = "block";
+        }
+        else {
+            card.classList.add('hide');
+            card.classList.remove('show');
+            card.style.display = "none";
+        }
     }
-    else {
-        card.classList.add('hide');
-        card.classList.remove('show');
-    }
-
 
 }
 
