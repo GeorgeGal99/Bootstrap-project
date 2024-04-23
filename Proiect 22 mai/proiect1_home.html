@@ -19,39 +19,39 @@
 </head>
 
 <body>
+    <div class="burger">
+        <nav class="navigation">
 
-    <nav class="   navigation">
+            <div class="d-flex flex-row mb-3">
+                <div class="p-3">
+                    <button type="button" class="btn btn-outline-dark" onclick="ToggleCard('addFlatFormContent')"
+                        style="--bs-btn-padding-y: .45rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                        Add Flat
+                    </button>
+                </div>
+                <div class="p-3">
+                    <button type="button" class="btn btn-outline-dark" onclick="ToggleCard('viewFlatList')"
+                        style="--bs-btn-padding-y: .45rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                        View Flats
+                    </button>
+                </div>
+                <div class="p-3">
+                    <button type="button" class="btn btn-outline-dark" id="btn_myProfile"
+                        onclick="ToggleCard('editProfileForm')"
+                        style="--bs-btn-padding-y: .45rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                        My Profile
+                    </button>
+                </div>
 
-        <div class="d-flex flex-row mb-3">
-            <div class="p-3">
-                <button type="button" class="btn btn-outline-dark" onclick="ToggleCard('addFlatFormContent')"
-                    style="--bs-btn-padding-y: .45rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                    Add New Flat
-                </button>
+                <div class="p-3 ms-auto">
+                    <span>Hello, <span id="username"></span></span>
+                    <button type="button" class="btn btn-danger" id="btn_logout" onclick="logoutBtn()"
+                        style="--bs-btn-padding-y: .45rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Logout</button>
+                </div>
             </div>
-            <div class="p-3">
-                <button type="button" class="btn btn-outline-dark" onclick="ToggleCard('viewFlatList')"
-                    style="--bs-btn-padding-y: .45rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                    View Flats
-                </button>
-            </div>
-            <div class="p-3">
-                <button type="button" class="btn btn-outline-dark" id="btn_myProfile"
-                    onclick="ToggleCard('editProfileForm')"
-                    style="--bs-btn-padding-y: .45rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                    My Profile
-                </button>
-            </div>
+        </nav>
 
-            <div class="p-3 ms-auto">
-                <span>Hello, <span id="username"></span></span>
-                <button type="button" class="btn btn-danger" id="btn_logout" onclick="logoutBtn()"
-                    style="--bs-btn-padding-y: .45rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Logout</button>
-            </div>
-        </div>
-    </nav>
-
-
+    </div>
 
     <div class="Principal-Container">
         <div class="container text-center">
@@ -199,8 +199,8 @@
                             Sort
                         </button>
                         <ul class="dropdown-menu">
-                            <button type="button" class="btn btn-outline-dark btn-sm" id="price">By Price</button>
-                            <button type="button" class="btn btn-outline-dark btn-sm" id="alphabet">By Alphabet</button>
+                            <button type="button" class="btn btn-outline-info btn-sm" id="price">By Price</button>
+                            <button type="button" class="btn btn-light btn-sm" id="alphabet">By Alphabet</button>
                         </ul>
                     </div>
 

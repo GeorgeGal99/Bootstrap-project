@@ -17,4 +17,26 @@ body {
         background-attachment: fixed;
 
     }
+
+    .col {
+        display: flex;
+        align-items: center;
+    }
+
+    .card {
+
+        width: 300px;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .shortcut {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+    }
 }
