@@ -1,0 +1,43 @@
+body {
+    background-image: url(istockphoto-1268691831-2048x2048.webp);
+    opacity: 90%;
+}
+
+.main {
+    margin-top: 60px;
+}
+
+
+
+@media(max-width :450px) {
+    body {
+        margin: 0;
+        padding: 0;
+        background-image: url("istockphoto-1268691831-2048x2048---2222.jpg");
+        background-size: contain;
+        background-attachment: fixed;
+
+    }
+
+    .col {
+        display: flex;
+        align-items: center;
+
+    }
+
+    .card {
+        width: 300px;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .shortcut {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+    }
+}

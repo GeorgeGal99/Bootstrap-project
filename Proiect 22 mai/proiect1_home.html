@@ -14,7 +14,7 @@
 
 
     <script src="proiect1_home.js" defer></script>
-    <link rel="stylesheet" href=" style.css">
+    <link rel="stylesheet" href=" style-home.css">
 
 </head>
 
@@ -124,7 +124,7 @@
 
                 </div>
 
-                <div class="col-3 card-view-flat">
+                <div class="col-4 card-view-flat">
                     <div class="container" id="viewFlatList">
                         <div class="container cards-container" id="mainContainer">
 
@@ -134,7 +134,7 @@
                     </div>
                 </div>
 
-                <div class="col-4 card-right" sstyle="display: none;">
+                <div class="col-4 ">
 
                     <div class="card hide" id="editProfileForm">
                         <div class="card-body">
@@ -167,7 +167,7 @@
                                 </div>
 
                                 <button type="submit" class="btn btn-success" id="btn_update_info">Update
-                                    information</button>
+                                    info</button>
 
                             </form>
                         </div>
@@ -191,11 +191,20 @@
                         <h2 class="h6_div">Date available: <span title="date_available"></span></h2>
                     </div>
 
-                    <button type="button" class="btn btn-danger btn-sm" id="removeFlat">Remove</button>
-                    <button type="button" class="btn btn-outline-dark btn-sm" id="sortFav">Sort</button>
-                    <button type="button" class="btn btn-warning btn-sm" id="addToFavorite">Favorit</button>
+                    <button type="button" class="btn btn-outline-dark btn-sm " id="removeFlat">Remove</button>
+                    <button type="button" class="btn btn-outline-dark btn-sm" id="addToFavorite">Favorit</button>
+                    <div class="btn-group">
+                        <button class="btn btn-outline-dark btn-sm dropdown-toggle" type="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Sort
+                        </button>
+                        <ul class="dropdown-menu">
+                            <button type="button" class="btn btn-outline-dark btn-sm" id="price">By Price</button>
+                            <button type="button" class="btn btn-outline-dark btn-sm" id="alphabet">By Alphabet</button>
+                        </ul>
+                    </div>
+
                 </div>
-            </div>
         </template>
 
     </div>
