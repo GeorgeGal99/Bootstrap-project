@@ -62,6 +62,10 @@ body {
         padding: 0;
     }
 
+    .navigation {
+        height: 75px;
+    }
+
 
 
     .Principal-Container {
@@ -112,6 +116,16 @@ body {
 
     .card-right.show {
         width: 400px;
+    }
+
+    .form-check {
+        display: inline-block;
+
+    }
+
+    .form-floating {
+        margin-bottom: 0px;
+
     }
 
 }
