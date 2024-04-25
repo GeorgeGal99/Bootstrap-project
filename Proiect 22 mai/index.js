@@ -12,18 +12,18 @@ function login(e) {
     let valid = true;
 
     if (loginEmail.value.trim() === "") {
-        // toastr["error"]("ups,something wrong!");
+
         valid = false;
     } else if (!validEmail(loginEmail.value.trim())) {
-        // toastr["error"]("ups,something wrong!");
+
         valid = false;
     }
     if (loginPassword.value.trim() === "") {
-        // toastr["error"]("ups,something wrong!");
+
         valid = false;
 
     } else if (loginPassword.value.length < 5) {
-        // toastr["error"]("ups,something wrong!");
+
         valid = false;
     }
 
@@ -33,7 +33,7 @@ function login(e) {
     if (valid) {
         loginUser();
     } else {
-        toastr["error"]("ups,something wrong!");
+        toastr["error"]("ups,invalid mail or password  wrong!");
     }
 
 };
@@ -60,7 +60,7 @@ function loginUser() {
         }
 
     }
-    alert("Invalid email or password. Please try again.");
+
 }
 
 

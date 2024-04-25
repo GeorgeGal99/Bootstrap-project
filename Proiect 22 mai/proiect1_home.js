@@ -96,72 +96,74 @@ document.getElementById("addFlatForm").addEventListener("submit", function (e) {
     //console.log(ad);
 
     if (ad.city.trim() == "") {
-        toastr["error"]("ciy");
-        alert("Please insert city!")
+        toastr["error"]("ciy please!");
+
 
         return
 
     } else if (!city_input.value.match(/^[a-zA-Z]+$/)) {
-        alert("city name ,no numbers!");
 
+        toastr["error"]("city name ,no numbers!");
         return
 
     }
     if (ad.street_name.trim() == "") {
-        alert("Please insert street!");
 
+        toastr["error"]("Please insert street!");
 
         return
 
     } else if (!street_name.value.match(/^[a-zA-Z]+$/)) {
-        alert("street name,no numbers!");
+
+        toastr["error"]("street name,no numbers!");
 
 
         return
     }
 
     if (ad.street_number.trim() == "") {
-        alert("Please insert street number!")
+
+        toastr["error"]("Please insert street number!");
 
 
         return
     } else if (!street_number.value.match(/^[0-9]+$/)) {
-        alert("Street nr,no leters");
 
+        toastr["error"]("Street nr,no leters");
         return
 
     }
 
     if (ad.area_size.trim() == "") {
-        alert("Please insert area size!")
 
+        toastr["error"]("Please insert area size!");
         return
     } else if (!area_size.value.match(/^[0-9]+$/)) {
-        alert("Area size,no leters");
 
+        toastr["error"]("Area size,no leters!");
         return
 
     }
 
     if (ad.year_built.trim() == "") {
-        alert("Please insert year built!")
 
+        toastr["error"]("Please insert year built!");
         return
 
     } else if (!year_built.value.match(/^[0-9]+$/)) {
-        alert("Year built,no leters");
 
+        toastr["error"]("Year built,no leters!");
         return
 
     }
 
     if (ad.rent_price.trim() == "") {
-        alert("Please insert rent price!")
 
+        toastr["error"]("Please insert rent price!");
         return
     } else if (!rent_price.value.match(/^[0-9]+$/)) {
-        alert("Rent price,no leters");
 
+        toastr["error"]("Rent price,no leters!");
         return
 
     }
