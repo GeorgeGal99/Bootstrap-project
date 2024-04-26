@@ -56,11 +56,11 @@ function loginUser() {
             localStorage.setItem("currentUserEmail", email);
             // Redirecționează către pagina home google
             window.location.href = "proiect1_home.html";
-            break;
+            return
         }
 
     }
-
+    toastr["error"]("Invalid username and/or password !", "Hello!");
 }
 
 

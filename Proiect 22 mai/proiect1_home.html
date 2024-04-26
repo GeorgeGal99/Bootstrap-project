@@ -126,6 +126,14 @@
 
                 <div class="col-4 card-view-flat">
                     <div class="container" id="viewFlatList">
+                        <div class="d-flex flex-row p-1">
+                            <select class="form-select form-select-sm" id="listSortBy">
+                                <option value="price_asc">Price Ascending</option>
+                                <option value="price_desc">Price Descending</option>
+                                <option value="year_asc">Year Ascending</option>
+                                <option value="year_desc">Year Descending</option>
+                            </select>
+                        </div>
                         <div class="container cards-container" id="mainContainer">
 
                             <!-- view Flat list-->
@@ -193,17 +201,6 @@
 
                     <button type="button" class="btn btn-outline-dark btn-sm " id="removeFlat">Remove</button>
                     <button type="button" class="btn btn-outline-dark btn-sm" id="addToFavorite">Favorit</button>
-                    <div class="btn-group">
-                        <button class="btn btn-outline-dark btn-sm dropdown-toggle" type="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Sort
-                        </button>
-                        <ul class="dropdown-menu">
-                            <button type="button" class="btn btn-outline-info btn-sm" id="price">By Price</button>
-                            <button type="button" class="btn btn-light btn-sm" id="alphabet">By Alphabet</button>
-                        </ul>
-                    </div>
-
                 </div>
         </template>
 

@@ -8,10 +8,12 @@ let year_built = document.querySelector("#year_built");
 let rent_price = document.querySelector("#rent_price");
 let date_available = document.querySelector("#date_available");
 let mainContainer = document.getElementById("mainContainer");
+let listSortBy = document.getElementById("listSortBy").value
 let regexLeters = /^[a-zA-Z]+$/;
 let regexNumbers = /^[0-9]+$/;
-
-
+const USERS = "users"
+const CURENT_USER_EMAIL = "currentUserEmail"
+let flats = [];
 
 function ShowCard(cardId) {
     let card = document.getElementById(cardId);
@@ -168,27 +170,28 @@ document.getElementById("addFlatForm").addEventListener("submit", function (e) {
 
     }
 
+
+    //adaugam unnanunt in lista(array);
+    ad.index = flats.length - 1
+    flats.push(ad);
+
+    // Adaugam anuntul in html
+    AddFlatToList(ad);
+
     // Obtinem adresa de email a userului logat
-    let user_email = localStorage.getItem("currentUserEmail");
+    let user_email = localStorage.getItem(CURENT_USER_EMAIL);
 
     // Keie stocare anunturi per user
     let ads_key = "ads-" + user_email;
 
-    // incarcam lista de anunturi din local storage
-    let ads = JSON.parse(localStorage.getItem(ads_key) || "[]");
-    //adaugam unnanunt in lista(array);
-    ads.push(ad);
-    // Adaugam anuntul in html
-    AddFlatToList(ads.length - 1, ad);
-
     // Salvam lista de anunturi
-    localStorage.setItem(ads_key, JSON.stringify(ads));
+    localStorage.setItem(ads_key, JSON.stringify(flats));
 
     e.target.reset();
     //ToggleCard("addFlatForm");
 });
 
-function AddFlatToList(index, flat) {
+function AddFlatToList(flat) {
     // cautam template-ul
     const template = document.querySelector("#flatAddTemplate");
     // clonam template-ul 
@@ -207,12 +210,16 @@ function AddFlatToList(index, flat) {
     for (let button of buttons) {
         if (button.id == "removeFlat") {
             button.addEventListener("click", function () {
-                RemoveFlatFromList(index)
+                RemoveFlatFromList(flat.index)
             });
         }
         if (button.id == "addToFavorite") {
+            if (flat.favorit != undefined && flat.favorit === true) {
+                button.classList.add("btn-primary");
+            }
+
             button.addEventListener("click", function () {
-                AddToFavorite(index)
+                AddToFavorite(flat.index)
             });
         }
     }
@@ -221,32 +228,97 @@ function AddFlatToList(index, flat) {
     mainContainer.appendChild(clone);
 }
 
-function RemoveFlatFromList(index) {
+function ListFlats(flats, sortBy) {
+    mainContainer.innerHTML = ""
+
+    flats = flats.map((flat, index) => {
+        flat.index = index
+        return flat
+    });
+
+    let sortFn
+    switch (sortBy) {
+        case "price_asc":
+            sortFn = function (a, b) {
+                return Number(a.rent_price) > Number(b.rent_price) ? 1 : -1
+            }
+            break;
+        case "price_desc":
+            sortFn = function (a, b) {
+                return Number(a.rent_price) > Number(b.rent_price) ? -1 : 1
+            }
+            break;
+        case "year_desc":
+            sortFn = function (a, b) {
+                return Number(a.year_built) > Number(b.year_built) ? -1 : 1
+            }
+            break
+        case "year_asc":
+            sortFn = function (a, b) {
+                return Number(a.year_built) > Number(b.year_built) ? 1 : -1
+            }
+            break
+
+    }
+
+    flats.sort(sortFn)
+
+    flats.sort(function (a, b) {
+        if (a.favorit != undefined && a.favorit) {
+            return -1;
+        }
+        return 0;
+    })
+
+    for (let index = 0; index < flats.length; index++) {
+        AddFlatToList(flats[index])
+    }
+}
+
+function AddToFavorite(index) {
     // Obtinem adresa de email a userului logat
-    let user_email = localStorage.getItem("currentUserEmail");
+    let user_email = localStorage.getItem(CURENT_USER_EMAIL);
 
     // Keie stocare anunturi per user
     let ads_key = "ads-" + user_email;
 
     // incarcam lista de anunturi din local storage
-    let ads = JSON.parse(localStorage.getItem(ads_key) || "[]");
+    let flats = JSON.parse(localStorage.getItem(ads_key) || "[]");
+
+    if (flats[index] == undefined) {
+        flats[index] == false
+    }
+    flats[index].favorit = !flats[index].favorit;
+
+
+    // Salvam lista de anunturi
+    localStorage.setItem(ads_key, JSON.stringify(flats));
+
+    ListFlats(flats, listSortBy)
+}
+
+
+
+function RemoveFlatFromList(index) {
+    // Obtinem adresa de email a userului logat
+    let user_email = localStorage.getItem(CURENT_USER_EMAIL);
+
+    // Keie stocare anunturi per user
+    let ads_key = "ads-" + user_email;
+
+    // incarcam lista de anunturi din local storage
+    let flats = JSON.parse(localStorage.getItem(ads_key) || "[]");
     let newAds = []
-    for (let i = 0; i < ads.length; i++) {
+    for (let i = 0; i < flats.length; i++) {
         if (i != index) {
-            newAds.push(ads[i])
+            newAds.push(flats[i])
         }
-        console.log('ads');
     }
 
     // Salvam lista de anunturi
     localStorage.setItem(ads_key, JSON.stringify(newAds));
 
-    mainContainer.innerHTML = ""
-
-    for (let index = 0; index < newAds.length; index++) {
-        AddFlatToList(index, newAds[index])
-    }
-
+    ListFlats(newAds, listSortBy)
 }
 
 
@@ -255,7 +327,7 @@ function RemoveFlatFromList(index) {
 document.addEventListener("DOMContentLoaded", (event) => {
 
     // incarcam adresa de email a utilizatorului authentificat
-    let curent_user_email = localStorage.getItem("currentUserEmail");
+    let curent_user_email = localStorage.getItem(CURENT_USER_EMAIL);
 
     // Guard page for unauthenticated users
     if (curent_user_email === null) {
@@ -263,7 +335,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }
 
     // incarcam lista de utilizatori
-    let users = JSON.parse(localStorage.getItem("users") || "[]");
+    let users = JSON.parse(localStorage.getItem(USERS) || "[]");
 
     // iteram prin lista de utilizatori si cautam userul cu adresa de email
     for (let user of users) {
@@ -275,13 +347,18 @@ document.addEventListener("DOMContentLoaded", (event) => {
         }
     }
 
-    let ads = JSON.parse(localStorage.getItem("ads-" + curent_user_email) || "[]");
+    flats = JSON.parse(localStorage.getItem("ads-" + curent_user_email) || "[]");
 
-    for (let index = 0; index < ads.length; index++) {
-        AddFlatToList(index, ads[index])
-    }
+    ListFlats(flats, listSortBy)
 
 });
+
+document.getElementById("listSortBy").addEventListener("change", function (e) {
+    sortBy = e.target.value
+    console.log(sortBy);
+    console.log(flats);
+    ListFlats(flats, sortBy)
+})
 
 document.getElementById("editProfile").addEventListener("submit", function (e) {
     e.preventDefault();
@@ -315,10 +392,10 @@ document.getElementById("editProfile").addEventListener("submit", function (e) {
     }
 
     // incarcam lista de anunturi din local storage
-    let users = JSON.parse(localStorage.getItem("users") || "[]");
+    let users = JSON.parse(localStorage.getItem(USERS) || "[]");
 
     // Obtinem adresa de email a userului logat
-    let user_email = localStorage.getItem("currentUserEmail");
+    let user_email = localStorage.getItem(CURENT_USER_EMAIL);
 
     //
     for (let registered_user of users) {
@@ -341,7 +418,7 @@ document.getElementById("editProfile").addEventListener("submit", function (e) {
 
             // acutalizam adresa de email a utilizatorului autentificat cu noua valoare
             if (user_email != user.email) {
-                localStorage.setItem("currentUserEmail", user.email);
+                localStorage.setItem(CURENT_USER_EMAIL, user.email);
                 localStorage.setItem("ads-" + user.email, localStorage.getItem("ads-" + user_email));
                 localStorage.removeItem("ads-" + user_email);
             }
@@ -349,7 +426,7 @@ document.getElementById("editProfile").addEventListener("submit", function (e) {
     }
 
     // Salvam lista de anunturi
-    localStorage.setItem("users", JSON.stringify(users));
+    localStorage.setItem(USERS, JSON.stringify(users));
     e.target.reset();
 
     ToggleCard("addFlatForm");
@@ -357,7 +434,7 @@ document.getElementById("editProfile").addEventListener("submit", function (e) {
 
 
 function logoutBtn() {
-    localStorage.removeItem("currentUserEmail")
+    localStorage.removeItem(CURENT_USER_EMAIL)
     document.location = "index.html"
 
 }

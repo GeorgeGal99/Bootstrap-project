@@ -9,7 +9,71 @@ let user = [];
 lastName = document.querySelector("#lastName")
 
 
-function btn_register() {
+let dataValida = false;
+
+dataNastere.addEventListener('change', () => {
+    toastr.options = {
+        "closeButton": false,
+        "debug": true,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "toast-top-center",
+        "preventDuplicates": true,
+        "onclick": null,
+        "showDuration": "3000",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+
+    const enteredDate = new Date(dataNastere.value);
+    const currentDate = new Date();
+    const varstaMinima = 18;
+    const varstaMaxima = 120;
+
+
+    console.log(currentDate.getFullYear() - enteredDate.getFullYear())
+    console.log(enteredDate.getFullYear())
+
+    if (enteredDate <= currentDate) {
+        dataValida = true;
+        console.log("it,s ok");
+    }
+    else {
+        dataNastere.value = "";
+        dataValida = false;
+        toastr["error"]("You are not the terminator!");
+
+
+        return
+    }
+
+    // Calculează diferența de ani între data curentă și data de naștere
+    if (currentDate.getFullYear() - enteredDate.getFullYear() < varstaMinima) {
+
+        dataValida = false;
+        toastr["error"]("nu ai 18 ani!");
+
+
+
+    } else if (currentDate.getFullYear() - enteredDate.getFullYear() > varstaMaxima) {
+        toastr["error"]("fantomas !");
+        dataValida = false;
+
+    } else {
+        // Stochează datele utilizatorului sau efectuează alte acțiuni
+        // console.log("Utilizatorul este eligibil pentru înregistrare.");
+        dataValida = true;
+
+        return
+    }
+});
+
+btnregister.addEventListener('click', function () {
     check = [];
     valid = false;
     class User {
@@ -142,7 +206,7 @@ function btn_register() {
         }
     }
 
-    let user = new User(firstName.value, lastName.value, email.value, password.value, birthDate.value,);
+    let user = new User(firstName.value, lastName.value, email.value, password.value, birthDate.value);
 
     // Citim lista de utilizatori din localstorage
     let users = JSON.parse(localStorage.getItem("users") || "[]");
@@ -169,76 +233,7 @@ function btn_register() {
         window.location.href = "index.html";
     }
 
-}
-let dataValida = false;
-
-dataNastere.addEventListener('change', () => {
-    toastr.options = {
-        "closeButton": false,
-        "debug": true,
-        "newestOnTop": false,
-        "progressBar": true,
-        "positionClass": "toast-top-center",
-        "preventDuplicates": true,
-        "onclick": null,
-        "showDuration": "3000",
-        "hideDuration": "1000",
-        "timeOut": "5000",
-        "extendedTimeOut": "1000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-    }
-
-    const enteredDate = new Date(dataNastere.value);
-    const currentDate = new Date();
-    const varstaMinima = 18;
-
-    // Calculează diferența de ani între data curentă și data de naștere
-    const diferentaAni = currentDate.getFullYear() - enteredDate.getFullYear();
-
-
-    if (enteredDate <= currentDate) {
-        dataValida = true;
-        console.log("it,s ok");
-    }
-    else {
-        dataNastere.value = "";
-        dataValida = false;
-        toastr["error"]("You are not the terminator!");
-
-
-        return
-    }
-
-    if (diferentaAni >= varstaMinima) {
-        // Stochează datele utilizatorului sau efectuează alte acțiuni
-        console.log("Utilizatorul este eligibil pentru înregistrare.");
-        dataValida = true;
-
-    } else {
-        dataValida = false;
-        toastr["error"]("nu ai 18 ani!");
-
-        return
-    }
-
-
-
-
 });
-
-
-
-
-
-
-
-
-
-
-btnregister.addEventListener('click', btn_register);
 
 
 
