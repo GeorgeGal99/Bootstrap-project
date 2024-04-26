@@ -1,12 +1,17 @@
 .hide {
     opacity: 0;
-    transition: opacity 1s linear;
+    transition: opacity 0.4s linear;
+}
 
+
+.hide * {
+    user-select: none;
+    pointer-events: none;
 }
 
 .show {
     opacity: 1;
-    transition: opacity 1s linear;
+    transition: opacity 0.4s linear;
 }
 
 .remove__list__button {

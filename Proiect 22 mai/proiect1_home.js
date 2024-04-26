@@ -21,7 +21,7 @@ function ShowCard(cardId) {
 function ToggleCard(cardId) {
     let card = document.getElementById(cardId);
     let docSize = window.screen.width;
-    console.log(docSize);
+    // console.log(docSize);
 
     if (docSize > 450) {
         card.style.display = "block";
@@ -235,6 +235,7 @@ function RemoveFlatFromList(index) {
         if (i != index) {
             newAds.push(ads[i])
         }
+        console.log('ads');
     }
 
     // Salvam lista de anunturi
@@ -340,9 +341,9 @@ document.getElementById("editProfile").addEventListener("submit", function (e) {
 
             // acutalizam adresa de email a utilizatorului autentificat cu noua valoare
             if (user_email != user.email) {
-                localStorage.setItem("currentUserEmail", user.email)
+                localStorage.setItem("currentUserEmail", user.email);
                 localStorage.setItem("ads-" + user.email, localStorage.getItem("ads-" + user_email));
-                localStorage.removeItem("ads-" + user_email)
+                localStorage.removeItem("ads-" + user_email);
             }
         }
     }
