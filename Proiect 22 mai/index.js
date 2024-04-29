@@ -1,10 +1,8 @@
 const loginEmail = document.querySelector("#emailInput");
 const loginPassword = document.querySelector("#passwordInput");
 let loginBtn = document.querySelector("#btn_login");
-
-
-
 loginBtn.addEventListener('click', login);
+
 
 function login(e) {
     e.preventDefault()
@@ -26,17 +24,13 @@ function login(e) {
 
         valid = false;
     }
-
-
-
-
     if (valid) {
         loginUser();
     } else {
         toastr["error"]("ups,invalid mail or password  wrong!");
     }
-
 };
+
 
 function validEmail(email) {
     const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
@@ -58,11 +52,9 @@ function loginUser() {
             window.location.href = "proiect1_home.html";
             return
         }
-
     }
-    toastr["error"]("Invalid username and/or password !", "Hello!");
+    toastr["error"]("ups,invalid mail or password  wrong!");
 }
-
 
 toastr.options = {
     "closeButton": true,

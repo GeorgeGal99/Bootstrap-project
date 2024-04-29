@@ -6,10 +6,9 @@ const birthDate = document.querySelector("#dataNastere");
 let btnregister = document.querySelector("#btn__register");
 let regex = /^[a-zA-Z]+$/;
 let user = [];
-lastName = document.querySelector("#lastName")
-
-
+lastName = document.querySelector("#lastName");
 let dataValida = false;
+
 
 dataNastere.addEventListener('change', () => {
     toastr.options = {
@@ -36,12 +35,12 @@ dataNastere.addEventListener('change', () => {
     const varstaMaxima = 120;
 
 
-    console.log(currentDate.getFullYear() - enteredDate.getFullYear())
-    console.log(enteredDate.getFullYear())
+    // console.log(currentDate.getFullYear() - enteredDate.getFullYear())
+    // console.log(enteredDate.getFullYear())
 
     if (enteredDate <= currentDate) {
         dataValida = true;
-        console.log("it,s ok");
+
     }
     else {
         dataNastere.value = "";
@@ -61,7 +60,7 @@ dataNastere.addEventListener('change', () => {
 
 
     } else if (currentDate.getFullYear() - enteredDate.getFullYear() > varstaMaxima) {
-        toastr["error"]("fantomas !");
+        toastr["error"]("You are not the terminator!");
         dataValida = false;
 
     } else {
