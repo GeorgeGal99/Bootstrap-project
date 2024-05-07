@@ -22,10 +22,9 @@ function ShowCard(cardId) {
 
 function ToggleCard(cardId) {
     let card = document.getElementById(cardId);
-    let docSize = window.screen.width;
-    // console.log(docSize);
+    let documentSize = window.screen.width;
 
-    if (docSize > 450) {
+    if (documentSize > 450) {
         card.style.display = "block";
         if (card.classList.contains('hide')) {
             card.classList.add('show');
@@ -53,7 +52,7 @@ function ToggleCard(cardId) {
 
 document.getElementById("addFlatForm").addEventListener("submit", function (e) {
     e.preventDefault();
-    // console.log("submit addFlatForm")
+
     //pentru toate elem din forma,mai putin btn Submit,citim valoarile
     let ad = {}
 
@@ -95,84 +94,75 @@ document.getElementById("addFlatForm").addEventListener("submit", function (e) {
 
     }
 
-    //console.log(ad);
-
     if (ad.city.trim() == "") {
         toastr["error"]("ciy please!");
-
 
         return
 
     } else if (!city_input.value.match(/^[a-zA-Z]+$/)) {
-
         toastr["error"]("city name ,no numbers!");
+
         return
 
     }
     if (ad.street_name.trim() == "") {
-
         toastr["error"]("Please insert street!");
 
         return
 
     } else if (!street_name.value.match(/^[a-zA-Z]+$/)) {
-
         toastr["error"]("street name,no numbers!");
-
 
         return
     }
 
     if (ad.street_number.trim() == "") {
-
         toastr["error"]("Please insert street number!");
-
 
         return
     } else if (!street_number.value.match(/^[0-9]+$/)) {
-
         toastr["error"]("Street nr,no leters");
+
         return
 
     }
 
     if (ad.area_size.trim() == "") {
-
         toastr["error"]("Please insert area size!");
+
         return
+
     } else if (!area_size.value.match(/^[0-9]+$/)) {
-
         toastr["error"]("Area size,no leters!");
-        return
 
+        return
     }
 
     if (ad.year_built.trim() == "") {
-
         toastr["error"]("Please insert year built!");
+
         return
 
     } else if (!year_built.value.match(/^[0-9]+$/)) {
-
         toastr["error"]("Year built,no leters!");
-        return
 
+        return
     }
 
     if (ad.rent_price.trim() == "") {
-
         toastr["error"]("Please insert rent price!");
+
         return
+
     } else if (!rent_price.value.match(/^[0-9]+$/)) {
-
         toastr["error"]("Rent price,no leters!");
-        return
 
+        return
     }
 
 
     //adaugam unnanunt in lista(array);
-    ad.index = flats.length - 1
+    ad.index = flats.length - 1;
     flats.push(ad);
 
     // Adaugam anuntul in html
@@ -199,6 +189,7 @@ function AddFlatToList(flat) {
 
     // Cautam toate elementele span
     let placeholders = clone.querySelectorAll("span");
+
     for (let placeholder of placeholders) {
         // Ne asiguram ca span are setat keya obiectului in proprietatea title
         if (placeholder.title.trim() != "") {
@@ -207,6 +198,7 @@ function AddFlatToList(flat) {
     }
 
     let buttons = clone.querySelectorAll("button");
+
     for (let button of buttons) {
         if (button.id == "removeFlat") {
             button.addEventListener("click", function () {
@@ -215,7 +207,7 @@ function AddFlatToList(flat) {
         }
         if (button.id == "addToFavorite") {
             if (flat.favorit != undefined && flat.favorit === true) {
-                button.classList.add("btn-primary");
+                button.classList.add("btn-warning");
             }
 
             button.addEventListener("click", function () {
@@ -258,10 +250,9 @@ function ListFlats(flats, sortBy) {
                 return Number(a.year_built) > Number(b.year_built) ? 1 : -1
             }
             break
-
     }
 
-    flats.sort(sortFn)
+    flats.sort(sortFn);
 
     flats.sort(function (a, b) {
         if (a.favorit != undefined && a.favorit) {
@@ -271,7 +262,7 @@ function ListFlats(flats, sortBy) {
     })
 
     for (let index = 0; index < flats.length; index++) {
-        AddFlatToList(flats[index])
+        AddFlatToList(flats[index]);
     }
 }
 
@@ -288,6 +279,7 @@ function AddToFavorite(index) {
     if (flats[index] == undefined) {
         flats[index] == false
     }
+
     flats[index].favorit = !flats[index].favorit;
 
 
@@ -329,7 +321,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     // incarcam adresa de email a utilizatorului authentificat
     let curent_user_email = localStorage.getItem(CURENT_USER_EMAIL);
 
-    // Guard page for unauthenticated users
+    // Pagina de gardă pentru utilizatorii neautentificați
     if (curent_user_email === null) {
         document.location = "index.html"
     }
@@ -342,7 +334,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         if (user.email === curent_user_email) {
             document.getElementById("username").innerText = user.first_name + " " + user.last_name
 
-            // Iesim din bucla dupa primult utilizator gasit
+            // Iesim din bucla dupa primul utilizator gasit
             break
         }
     }
@@ -439,20 +431,11 @@ function logoutBtn() {
 
 }
 
-
 function addRemoveListEvent(removeList, newDiv) {
     removeList.addEventListener("click", function () {
         newDiv.remove();
     });
 }
-
-
-
-
-
-
-
-
 
 toastr.options = {
     "closeButton": false,
