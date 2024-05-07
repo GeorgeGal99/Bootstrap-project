@@ -199,19 +199,33 @@ function AddFlatToList(flat) {
 
     let buttons = clone.querySelectorAll("button");
 
+
+
     for (let button of buttons) {
+
+
         if (button.id == "removeFlat") {
+
             button.addEventListener("click", function () {
-                RemoveFlatFromList(flat.index)
+
+                let confirmRemove = confirm("are you sure to Deleting?");
+                if (confirmRemove) {
+                    RemoveFlatFromList(flat.index);
+                }
             });
         }
         if (button.id == "addToFavorite") {
+
             if (flat.favorit != undefined && flat.favorit === true) {
                 button.classList.add("btn-warning");
             }
 
             button.addEventListener("click", function () {
-                AddToFavorite(flat.index)
+                let confirmFavorite = confirm("are you sure to put Favorite?");
+                if (confirmFavorite) {
+                    AddToFavorite(flat.index);
+
+                }
             });
         }
     }
