@@ -207,11 +207,15 @@ function AddFlatToList(flat) {
         if (button.id == "removeFlat") {
 
             button.addEventListener("click", function () {
-
-                let confirmRemove = confirm("are you sure to Deleting?");
-                if (confirmRemove) {
+                let del = confirm("Are you sure you want to delete this record?");
+                if (del == true) {
                     RemoveFlatFromList(flat.index);
+                    alert("record deleted")
+                } else {
+                    alert("Record Not Deleted")
                 }
+                return del;
+
             });
         }
         if (button.id == "addToFavorite") {
@@ -221,17 +225,24 @@ function AddFlatToList(flat) {
             }
 
             button.addEventListener("click", function () {
-                let confirmFavorite = confirm("are you sure to put Favorite?");
-                if (confirmFavorite) {
+                let delFavorite = confirm("Put this Favorite?");
+                if (delFavorite == true) {
                     AddToFavorite(flat.index);
-
+                    // alert("record favorite")
+                } else {
+                    alert("Favorite Not Deleted")
                 }
+                return delFavorite;
             });
         }
     }
 
     // Adaugam anuntul in lista 
     mainContainer.appendChild(clone);
+
+
+
+
 }
 
 function ListFlats(flats, sortBy) {
@@ -450,6 +461,34 @@ function addRemoveListEvent(removeList, newDiv) {
         newDiv.remove();
     });
 }
+
+//  functie de logout de inactivitate
+let stop = false;
+let initial_timer = (1000 * 1);
+let timer = initial_timer;
+let logoutUrl = 'unlock.html?last_page_visited=' + window.location.pathname; // URL to logout page.
+
+function logOut() {
+    window.location = logoutUrl;
+}
+
+if (!stop) {
+    setInterval(function () {
+        timer -= 1000;
+        console.log("Timer:" + timer);
+        if (timer == 0 || timer < 0) {
+            logOut()
+            stop = true;
+        }
+    }, 1000);
+}
+
+$('body').bind('click dblclick mousedown mouseenter mouseleave keyup mouseover',
+    function (e) {
+        timer = initial_timer;
+    });
+
+// var logoutUrl = 'unlock.html?last_page_visited='+window.location.pathname ; // URL to logout page.
 
 toastr.options = {
     "closeButton": false,
