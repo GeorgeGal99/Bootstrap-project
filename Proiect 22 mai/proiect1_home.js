@@ -110,10 +110,6 @@ document.getElementById("addFlatForm").addEventListener("submit", function (e) {
 
         return
 
-    } else if (!street_name.value.match(/^[a-zA-Z]+$/)) {
-        toastr["error"]("street name,no numbers!");
-
-        return
     }
 
     if (ad.street_number.trim() == "") {
@@ -236,13 +232,8 @@ function AddFlatToList(flat) {
             });
         }
     }
-
     // Adaugam anuntul in lista 
     mainContainer.appendChild(clone);
-
-
-
-
 }
 
 function ListFlats(flats, sortBy) {
@@ -310,11 +301,8 @@ function AddToFavorite(index) {
 
     // Salvam lista de anunturi
     localStorage.setItem(ads_key, JSON.stringify(flats));
-
     ListFlats(flats, listSortBy)
 }
-
-
 
 function RemoveFlatFromList(index) {
     // Obtinem adresa de email a userului logat
@@ -464,20 +452,15 @@ function addRemoveListEvent(removeList, newDiv) {
 
 //  functie logout de inactivitate
 let stop = false;
-let initial_timer = (1000 * 1);
+let initial_timer = (5 * 60 * 1000);
 let timer = initial_timer;
-let logoutUrl = 'unlock.html?last_page_visited=' + window.location.pathname; // URL to logout page.
-
-function logOut() {
-    window.location = logoutUrl;
-}
 
 if (!stop) {
     setInterval(function () {
         timer -= 1000;
         console.log("Timer:" + timer);
         if (timer == 0 || timer < 0) {
-            logOut()
+            logoutBtn()
             stop = true;
         }
     }, 1000);
@@ -488,7 +471,6 @@ $('body').bind('click dblclick mousedown mouseenter mouseleave keyup mouseover',
         timer = initial_timer;
     });
 
-// var logoutUrl = 'unlock.html?last_page_visited='+window.location.pathname ; // URL to logout page.
 
 toastr.options = {
     "closeButton": false,
