@@ -462,7 +462,7 @@ function addRemoveListEvent(removeList, newDiv) {
     });
 }
 
-//  functie de logout de inactivitate
+//  functie logout de inactivitate
 let stop = false;
 let initial_timer = (1000 * 1);
 let timer = initial_timer;
