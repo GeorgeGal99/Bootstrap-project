@@ -221,14 +221,8 @@ function AddFlatToList(flat) {
             }
 
             button.addEventListener("click", function () {
-                let delFavorite = confirm("Put this Favorite?");
-                if (delFavorite == true) {
-                    AddToFavorite(flat.index);
-                    // alert("record favorite")
-                } else {
-                    alert("Favorite Not Deleted")
-                }
-                return delFavorite;
+
+                AddToFavorite(flat.index);
             });
         }
     }
@@ -405,8 +399,7 @@ document.getElementById("editProfile").addEventListener("submit", function (e) {
     //
     for (let registered_user of users) {
         if (registered_user.email == user.email) {
-            alert("adresa deja exista")
-
+            toastr["error"]("adresa deja exista");
             // guard duplicate email address
             return
         }
@@ -452,7 +445,7 @@ function addRemoveListEvent(removeList, newDiv) {
 
 //  functie logout de inactivitate
 let stop = false;
-let initial_timer = (5 * 60 * 1000);
+let initial_timer = (35 * 60 * 1000);
 let timer = initial_timer;
 
 if (!stop) {
