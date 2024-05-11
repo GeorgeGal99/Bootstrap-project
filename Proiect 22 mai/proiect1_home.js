@@ -387,7 +387,7 @@ document.getElementById("editProfile").addEventListener("submit", function (e) {
                 user.data_nastere = e.target[i].value;
                 break
             default:
-                console.log("warning: missing attribute: ", e.target[i])
+            // console.log("warning: missing attribute: ", e.target[i])
 
         }
     }
