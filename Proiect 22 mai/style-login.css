@@ -3,8 +3,9 @@ body {
     opacity: 90%;
 }
 
+/* setings for main  */
 .main {
-    margin-top: 200px;
+    margin-top: 12.5rem;
 }
 
 
@@ -18,25 +19,28 @@ body {
 
     }
 
+    /* setings for main col */
     .col {
         display: flex;
         align-items: center;
     }
 
+    /* setings for visual input register dimension width */
     .card {
 
-        width: 300px;
+        width: 18.75rem;
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
     }
 
+    /* setings  shortcut  for redirect to page register */
     .shortcut {
         position: fixed;
         bottom: 0;
         left: 0;
         width: 100%;
         text-align: center;
-        padding: 10px;
+        padding: 0.625rem;
     }
 }

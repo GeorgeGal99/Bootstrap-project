@@ -3,11 +3,12 @@ body {
     opacity: 90%;
 }
 
+/* setings for main  */
 .main {
-    margin-top: 60px;
+    margin-top: 3.75rem;
 }
 
-
+/* here setings Media Queries for mobil */
 
 @media(max-width :450px) {
     body {
@@ -19,25 +20,28 @@ body {
 
     }
 
+    /* setings for main col */
     .col {
         display: flex;
         align-items: center;
 
     }
 
+    /* setings for visual input register dimension width */
     .card {
-        width: 300px;
+        width: 20.625rem;
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
     }
 
+    /* setings  shortcut  for redirect to page login */
     .shortcut {
         position: fixed;
         bottom: 0;
         left: 0;
         width: 100%;
         text-align: center;
-        padding: 10px;
+        padding: 0.625rem;
     }
 }

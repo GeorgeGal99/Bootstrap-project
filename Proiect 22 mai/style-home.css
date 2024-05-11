@@ -1,48 +1,61 @@
+body {
+    background-color: #e1e6ee;
+
+}
+
+/* setings for view flats(add flat,view flat ,my profile) */
 .hide {
     opacity: 0;
     transition: opacity 0.4s linear;
 }
 
+/* setings for view flats(add flat,view flat ,my profile) */
 
 .hide * {
     user-select: none;
     pointer-events: none;
 }
 
+/* setings for  all visual flat( appear and disappear) */
+
 .show {
     opacity: 1;
     transition: opacity 0.4s linear;
 }
 
+/* setings for button remove from view flat */
+
 .remove__list__button {
-    background-color: #dc3545;
     color: black;
-    height: 30px;
-    width: 70px;
+    height: 1.875rem;
+    width: 4.375rem;
     display: flex;
     align-items: flex-start;
 
     border-radius: 15%;
 }
 
+/* setings font style view flat */
+
 .h6_div {
     text-align: left;
-    font-size: 13px;
+    font-size: 0.813rem;
 }
+
+/* setings for navigation bar */
 
 nav.navigation {
     background-color: rgb(217, 217, 219);
 }
 
+/* setings for navigation bar */
+
 nav.navigation div.p-3 {
-    margin-left: 30px;
+    margin-left: 1.875rem;
 
 }
 
-body {
-    background-color: #e1e6ee;
-
-}
+/* setings for view flats */
 
 .cards-container {
     display: flex;
@@ -51,15 +64,20 @@ body {
 
 }
 
+/* setings for div view flats */
+
 .create-div {
     padding: 0.5rem 0 0.5rem 0.5rem;
 }
 
+/* setings for view flats */
+
 #viewFlatList {
-    height: 600px;
+    height: 37.5rem;
     overflow-x: auto;
 }
 
+/* setings for  media queries mobile */
 
 @media(max-width :450px) {
     body {
@@ -67,39 +85,45 @@ body {
         padding: 0;
     }
 
+    /* setings for navigation bar */
+
     .navigation {
-        height: 75px;
+        height: 6.688rem;
     }
 
-
+    /* setings for main container div  */
 
     .Principal-Container {
 
-        margin-left: 60px;
+        margin-left: 5rem;
 
     }
+
+    /* setings for view flats card  */
 
     .card-body {
 
         display: flex;
         flex-direction: column;
-        align-items: center;
-        width: 300px;
+        align-items: flex-start;
+        width: 18.75rem;
+        margin-left: 0.313rem;
 
     }
 
-
-
-
+    /* setings for view flats card */
 
     .container.show {
         display: flex;
-
+        align-items: flex-start;
+        margin-left: -20px;
         flex-direction: column;
         text-align: center;
-        width: 300px;
+        width: 18.75rem;
 
     }
+
+    /* setings for view flats card */
 
     .cards-container {
 
@@ -107,39 +131,43 @@ body {
         display: flex;
         flex-direction: column;
 
-
     }
 
+    /* setings for view flats card */
 
     .card-view-flat {
-        margin-right: 250px;
+        margin-right: 15.625rem;
     }
+
+    /* setings for view flats card */
 
     .card.show {
-        width: 300px;
+        width: 15.625rem;
     }
 
-    .card-right.show {
-        width: 400px;
-    }
 
-    .form-check {
+    /* .card-right.show {
+        width: 25rem;
+    } */
+
+
+    /* .form-check {
         display: inline-block;
 
-    }
+    } */
 
-    .form-floating {
+    /* .form-floating {
         margin-bottom: 0px;
 
-    }
+    } */
 
-    .container {
+    /* .container {
 
         display: flex;
         flex-direction: column;
 
 
-    }
+    } */
 
 
 }
