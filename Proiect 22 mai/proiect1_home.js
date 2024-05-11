@@ -15,6 +15,7 @@ const USERS = "users"
 const CURENT_USER_EMAIL = "currentUserEmail"
 let flats = [];
 
+
 function ShowCard(cardId) {
     let card = document.getElementById(cardId);
     card.style = "display:block";
@@ -198,11 +199,19 @@ function AddFlatToList(flat) {
 
 
     for (let button of buttons) {
-
+        const myModal = document.getElementById('myModal')
+        const myInput = document.getElementById('myInput')
+        let btnModalRemove = document.querySelector("#btnModalRemove");
+        let btnModalOk = document.querySelector("#btnModalOk");
 
         if (button.id == "removeFlat") {
 
             button.addEventListener("click", function () {
+
+
+                myModal.addEventListener('shown.bs.modal', () => {
+                    myInput.focus()
+                })
                 let del = confirm("Are you sure you want to delete this record?");
                 if (del == true) {
                     RemoveFlatFromList(flat.index);
