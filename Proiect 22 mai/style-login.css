@@ -19,13 +19,8 @@ body {
 
     }
 
-    /* setings for main col */
-    .col {
-        display: flex;
-        align-items: center;
-    }
-
     /* setings for visual input register dimension width */
+
     .card {
 
         width: 18.75rem;

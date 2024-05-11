@@ -3,20 +3,20 @@ body {
 
 }
 
-/* setings for view flats(add flat,view flat ,my profile) */
+/* setings for  all visual flat( disappear) */
 .hide {
     opacity: 0;
     transition: opacity 0.4s linear;
 }
 
-/* setings for view flats(add flat,view flat ,my profile) */
+/* setings for all view flats(add flat,view flat ,my profile) */
 
 .hide * {
     user-select: none;
     pointer-events: none;
 }
 
-/* setings for  all visual flat( appear and disappear) */
+/* setings for  all visual flat( appear ) */
 
 .show {
     opacity: 1;
@@ -83,6 +83,20 @@ nav.navigation div.p-3 {
     body {
         margin: 0;
         padding: 0;
+    }
+
+    /* setings for  all visual flat(  disappear) */
+
+    .hide {
+        opacity: 0;
+        transition: opacity 1 s linear;
+    }
+
+    /* setings for  all visual flat( appear) */
+
+    .show {
+        opacity: 1;
+        transition: opacity 0.5s linear;
     }
 
     /* setings for navigation bar */
