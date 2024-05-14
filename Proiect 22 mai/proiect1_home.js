@@ -202,17 +202,10 @@ function AddFlatToList(flat) {
 
 
         if (button.id == "removeFlat") {
-            const myModal = document.getElementById('myModal')
-            // const myInput = document.getElementById('myInput')
 
-            // myModal.addEventListener('shown.bs.modal', () => {
-            //     myInput.focus()
-            // }
             button.addEventListener("click", function () {
 
-                let del = confirm("Are you sure you want to delete this record?");
-
-                if (del == true) {
+                if (window.confirm("Are you sure ?")) {
                     RemoveFlatFromList(flat.index);
                     alert(' deleted')
                 } else {
@@ -221,6 +214,8 @@ function AddFlatToList(flat) {
                 return del;
 
             });
+
+
         }
         if (button.id == "addToFavorite") {
 
@@ -362,8 +357,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 document.getElementById("listSortBy").addEventListener("change", function (e) {
     sortBy = e.target.value
-    console.log(sortBy);
-    console.log(flats);
+    // console.log(sortBy);
+    // console.log(flats);
     ListFlats(flats, sortBy)
 })
 
@@ -440,9 +435,11 @@ document.getElementById("editProfile").addEventListener("submit", function (e) {
 
 
 function logoutBtn() {
-    localStorage.removeItem(CURENT_USER_EMAIL)
-    document.location = "index.html"
 
+    if (window.confirm("Are you sure ?")) {
+        localStorage.removeItem(CURENT_USER_EMAIL)
+        document.location = "index.html"
+    }
 }
 
 function addRemoveListEvent(removeList, newDiv) {
