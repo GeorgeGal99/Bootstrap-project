@@ -202,15 +202,21 @@ function AddFlatToList(flat) {
 
 
         if (button.id == "removeFlat") {
+            const myModal = document.getElementById('myModal')
+            const myInput = document.getElementById('myInput')
 
+            myModal.addEventListener('shown.bs.modal', () => {
+                myInput.focus()
+            })
             button.addEventListener("click", function () {
 
                 let del = confirm("Are you sure you want to delete this record?");
+
                 if (del == true) {
                     RemoveFlatFromList(flat.index);
-                    alert("record deleted")
+                    alert(' deleted')
                 } else {
-                    alert("Record Not Deleted")
+                    alert('not deleted')
                 }
                 return del;
 
