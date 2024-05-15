@@ -3,6 +3,8 @@ body {
 
 }
 
+
+
 /* setings for  all visual flat( disappear) */
 .hide {
     opacity: 0;
@@ -75,6 +77,40 @@ nav.navigation div.p-3 {
 #viewFlatList {
     height: 37.5rem;
     overflow-x: auto;
+}
+
+/* setings  modal confirmation (remove,favorit,logout) */
+
+#id_confirmdiv {
+    /* display: none !important;
+    display: flex; */
+
+    background-color: #eee;
+    border-radius: 10px;
+    border: 2px solid #aaa;
+    position: fixed;
+    width: 250px;
+    height: 100px;
+    left: 50%;
+    bottom: 50%;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+
+/* style button modal */
+
+#id_truebtn {
+    background-color: aqua;
+    border-radius: 8px;
+
+}
+
+/* style button modal */
+
+#id_falsebtn {
+    background-color: red;
+    border-radius: 8px;
 }
 
 /* setings for  media queries mobile */
@@ -158,30 +194,5 @@ nav.navigation div.p-3 {
     .card.show {
         width: 15.625rem;
     }
-
-
-    /* .card-right.show {
-        width: 25rem;
-    } */
-
-
-    /* .form-check {
-        display: inline-block;
-
-    } */
-
-    /* .form-floating {
-        margin-bottom: 0px;
-
-    } */
-
-    /* .container {
-
-        display: flex;
-        flex-direction: column;
-
-
-    } */
-
 
 }
