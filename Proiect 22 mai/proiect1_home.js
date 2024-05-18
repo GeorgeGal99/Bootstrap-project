@@ -202,26 +202,23 @@ function AddFlatToList(flat) {
 
     let buttons = clone.querySelectorAll("button");
 
-
-
     for (let button of buttons) {
 
         if (button.id == "removeFlat") {
 
             button.addEventListener("click", function () {
 
-
                 let div = document.getElementById('id_confirmdiv');
                 let par = div.querySelector('p');
                 div.setAttribute('style', 'display:block !important');
                 par.innerText = "Do you want to delete this Apartement?";
                 document.getElementById('id_truebtn').onclick = function () {
-                    //facem cod
+
                     RemoveFlatFromList(flat.index);
                     div.style.display = "none";
                 }
                 document.getElementById('id_falsebtn').onclick = function () {
-                    // nu facem cod
+
                     div.style.display = "none";
                 }
             });
@@ -260,7 +257,6 @@ function AddFlatToList(flat) {
     // Adaugam anuntul in lista 
     mainContainer.appendChild(clone);
 }
-
 
 function ListFlats(flats, sortBy) {
     mainContainer.innerHTML = ""
@@ -399,7 +395,6 @@ document.getElementById("editProfile").addEventListener("submit", function (e) {
     // read the values from input ​​for all elemements in the form, except btn Submit
 
     let user = {}
-
     for (let i = 0; i < e.target.length; i++) {
         if (e.target[i].type === "submit") {
             continue
@@ -433,12 +428,17 @@ document.getElementById("editProfile").addEventListener("submit", function (e) {
     // We get the email address of the logged in use
 
     let user_email = localStorage.getItem(CURENT_USER_EMAIL);
+    // nu merge  
+    user_email = JSON.parse(localStorage.getItem("CURENT_USER_EMAIL"));
+    let showEmail = document.getElementById("emailparagraf");
+    showEmail.innerText = ` ${user_email}`;
 
     // iteram prin useri sa vedem daca avem useri cu acelasi nume
     // we iterate through the users to see if we have users with the same name
 
     for (let registered_user of users) {
         if (registered_user.email == user.email) {
+
             toastr["error"]("adresa deja exista");
             // guard duplicate email address
             return
@@ -511,7 +511,7 @@ let timer = initial_timer;
 if (!stop) {
     setInterval(function () {
         timer -= 1000;
-        // console.log("Timer:" + timer);
+        console.log("Timer:" + timer);
         if (timer == 0 || timer < 0) {
             logoutBtn()
             stop = true;
