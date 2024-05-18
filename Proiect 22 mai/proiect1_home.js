@@ -355,8 +355,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 document.getElementById("listSortBy").addEventListener("change", function (e) {
     sortBy = e.target.value
-    // console.log(sortBy);
-    // console.log(flats);
     ListFlats(flats, sortBy)
 })
 
@@ -385,7 +383,7 @@ document.getElementById("editProfile").addEventListener("submit", function (e) {
                 user.data_nastere = e.target[i].value;
                 break
             default:
-            // console.log("warning: missing attribute: ", e.target[i])
+
 
         }
     }
