@@ -158,7 +158,7 @@ document.getElementById("addFlatForm").addEventListener("submit", function (e) {
     }
 
 
-    //adaugam unanunt in lista(array);
+    //adaugam unnanunt in lista(array);
     ad.index = flats.length - 1;
     flats.push(ad);
 
@@ -198,326 +198,288 @@ function AddFlatToList(flat) {
 
     for (let button of buttons) {
 
+
         if (button.id == "removeFlat") {
 
             button.addEventListener("click", function () {
-                if (window = confirm) {
-                    let div = document.getElementById('id_confirmdiv');
-                    let par = div.querySelector('p');
-                    div.setAttribute('style', 'display:block !important');
 
-                    par.innerText = "Do you want to delete this Apartment?";
-                    document.getElementById('id_truebtn').onclick = function () {
-
-                        RemoveFlatFromList(flat.index);
-                    };
+                if (window.confirm("Are you sure ?")) {
+                    RemoveFlatFromList(flat.index);
+                    alert(' deleted')
                 } else {
-                    div.style.display = "none";
+                    alert('not deleted')
                 }
+                return del;
 
-
-                document.getElementById('id_falsebtn').onclick = function () {
-                    // nu facem cod
-                    div.style.display = "none";
-                };
             });
-
-
-
 
 
         }
         if (button.id == "addToFavorite") {
 
-
-            function AddFlatToList(flat) {
-
-                button.addEventListener("click", function () {
-
-                    AddToFavorite(flat.index);
-                    let div = document.getElementById('id_confirmdiv');
-                    let par = div.querySelector('p');
-                    div.setAttribute('style', 'display:block !important');
-                    if (this.classList.contains('btn-warning')) {
-
-                        par.innerText = "Do you want to remove this Apartement from favorites?";
-                    }
-                    else {
-                        par.innerText = "Do you want to add this Apartement from favorites?";
-                    }
-
-                    document.getElementById('id_truebtn').onclick = function () {
-                        AddToFavorite(flat.index);
-                        div.style.display = "none";
-                    }
-                    document.getElementById('id_falsebtn').onclick = function () {
-                        div.style.display = "none";
-                    }
-
-                });
+            if (flat.favorit != undefined && flat.favorit === true) {
+                button.classList.add("btn-warning");
             }
-        }
 
+            button.addEventListener("click", function () {
 
-        // Adaugam anuntul in lista 
-
-        mainContainer.appendChild(clone);
-    }
-
-    function ListFlats(flats, sortBy) {
-        mainContainer.innerHTML = ""
-
-        flats = flats.map((flat, index) => {
-            flat.index = index
-            return flat
-        });
-
-        let sortFn
-        switch (sortBy) {
-            case "price_asc":
-                sortFn = function (a, b) {
-                    return Number(a.rent_price) > Number(b.rent_price) ? 1 : -1
-                }
-                break;
-            case "price_desc":
-                sortFn = function (a, b) {
-                    return Number(a.rent_price) > Number(b.rent_price) ? -1 : 1
-                }
-                break;
-            case "year_desc":
-                sortFn = function (a, b) {
-                    return Number(a.year_built) > Number(b.year_built) ? -1 : 1
-                }
-                break
-            case "year_asc":
-                sortFn = function (a, b) {
-                    return Number(a.year_built) > Number(b.year_built) ? 1 : -1
-                }
-                break
-        }
-
-        flats.sort(sortFn);
-
-        flats.sort(function (a, b) {
-            if (a.favorit != undefined && a.favorit) {
-                return -1;
-            }
-            return 0;
-        })
-
-        for (let index = 0; index < flats.length; index++) {
-            AddFlatToList(flats[index]);
+                AddToFavorite(flat.index);
+            });
         }
     }
+    // Adaugam anuntul in lista 
+    mainContainer.appendChild(clone);
+}
 
-    function AddToFavorite(index) {
-        // Obtinem adresa de email a userului logat
-        let user_email = localStorage.getItem(CURENT_USER_EMAIL);
+function ListFlats(flats, sortBy) {
+    mainContainer.innerHTML = ""
 
-        // Keie stocare anunturi per user
-        let ads_key = "ads-" + user_email;
-
-        // incarcam lista de anunturi din local storage
-        let flats = JSON.parse(localStorage.getItem(ads_key) || "[]");
-
-        if (flats[index] == undefined) {
-            flats[index] == false
-        }
-
-        flats[index].favorit = !flats[index].favorit;
-
-
-        // Salvam lista de anunturi
-        localStorage.setItem(ads_key, JSON.stringify(flats));
-        ListFlats(flats, listSortBy)
-    }
-
-    function RemoveFlatFromList(index) {
-        // Obtinem adresa de email a userului logat
-        let user_email = localStorage.getItem(CURENT_USER_EMAIL);
-
-        // Keie stocare anunturi per user
-        let ads_key = "ads-" + user_email;
-
-        // incarcam lista de anunturi din local storage
-        let flats = JSON.parse(localStorage.getItem(ads_key) || "[]");
-        let newAds = []
-        for (let i = 0; i < flats.length; i++) {
-            if (i != index) {
-                newAds.push(flats[i])
-            }
-        }
-
-        // Salvam lista de anunturi
-        localStorage.setItem(ads_key, JSON.stringify(newAds));
-
-        ListFlats(newAds, listSortBy)
-    }
-
-
-
-    // Cand se termina de incarcat pagina html
-    document.addEventListener("DOMContentLoaded", (event) => {
-
-        // incarcam adresa de email a utilizatorului authentificat
-        let curent_user_email = localStorage.getItem(CURENT_USER_EMAIL);
-
-        // Pagina de gardă pentru utilizatorii neautentificați
-        if (curent_user_email === null) {
-            document.location = "index.html"
-        }
-
-        // incarcam lista de utilizatori
-        let users = JSON.parse(localStorage.getItem(USERS) || "[]");
-
-        // iteram prin lista de utilizatori si cautam userul cu adresa de email
-        for (let user of users) {
-            if (user.email === curent_user_email) {
-                document.getElementById("username").innerText = user.first_name + " " + user.last_name
-
-                // Iesim din bucla dupa primul utilizator gasit
-                break
-            }
-        }
-
-        flats = JSON.parse(localStorage.getItem("ads-" + curent_user_email) || "[]");
-
-        ListFlats(flats, listSortBy)
-
+    flats = flats.map((flat, index) => {
+        flat.index = index
+        return flat
     });
 
-    document.getElementById("listSortBy").addEventListener("change", function (e) {
-        sortBy = e.target.value
-        ListFlats(flats, sortBy)
+    let sortFn
+    switch (sortBy) {
+        case "price_asc":
+            sortFn = function (a, b) {
+                return Number(a.rent_price) > Number(b.rent_price) ? 1 : -1
+            }
+            break;
+        case "price_desc":
+            sortFn = function (a, b) {
+                return Number(a.rent_price) > Number(b.rent_price) ? -1 : 1
+            }
+            break;
+        case "year_desc":
+            sortFn = function (a, b) {
+                return Number(a.year_built) > Number(b.year_built) ? -1 : 1
+            }
+            break
+        case "year_asc":
+            sortFn = function (a, b) {
+                return Number(a.year_built) > Number(b.year_built) ? 1 : -1
+            }
+            break
+    }
+
+    flats.sort(sortFn);
+
+    flats.sort(function (a, b) {
+        if (a.favorit != undefined && a.favorit) {
+            return -1;
+        }
+        return 0;
     })
 
+    for (let index = 0; index < flats.length; index++) {
+        AddFlatToList(flats[index]);
+    }
+}
 
-    document.getElementById("editProfile").addEventListener("submit", function (e) {
-        e.preventDefault();
-        //pentru toate elem din forma,mai putin btn Submit,citim valoarile
-        let user = {}
-        for (let i = 0; i < e.target.length; i++) {
-            if (e.target[i].type === "submit") {
-                continue
-            }
-            switch (e.target[i].id) {
-                case "email_profile":
-                    user.email = e.target[i].value;
-                    break
-                case "password_profile":
-                    user.password = e.target[i].value;
-                    break
-                case "first_name":
-                    user.first_name = e.target[i].value;
-                    break
-                case "last_name":
-                    user.last_name = e.target[i].value;
-                    break
-                case "data_nastere":
-                    user.data_nastere = e.target[i].value;
-                    break
-                default:
+function AddToFavorite(index) {
+    // Obtinem adresa de email a userului logat
+    let user_email = localStorage.getItem(CURENT_USER_EMAIL);
+
+    // Keie stocare anunturi per user
+    let ads_key = "ads-" + user_email;
+
+    // incarcam lista de anunturi din local storage
+    let flats = JSON.parse(localStorage.getItem(ads_key) || "[]");
+
+    if (flats[index] == undefined) {
+        flats[index] == false
+    }
+
+    flats[index].favorit = !flats[index].favorit;
 
 
+    // Salvam lista de anunturi
+    localStorage.setItem(ads_key, JSON.stringify(flats));
+    ListFlats(flats, listSortBy)
+}
+
+function RemoveFlatFromList(index) {
+    // Obtinem adresa de email a userului logat
+    let user_email = localStorage.getItem(CURENT_USER_EMAIL);
+
+    // Keie stocare anunturi per user
+    let ads_key = "ads-" + user_email;
+
+    // incarcam lista de anunturi din local storage
+    let flats = JSON.parse(localStorage.getItem(ads_key) || "[]");
+    let newAds = []
+    for (let i = 0; i < flats.length; i++) {
+        if (i != index) {
+            newAds.push(flats[i])
+        }
+    }
+
+    // Salvam lista de anunturi
+    localStorage.setItem(ads_key, JSON.stringify(newAds));
+
+    ListFlats(newAds, listSortBy)
+}
+
+
+
+// Cand se termina de incarcat pagina html
+document.addEventListener("DOMContentLoaded", (event) => {
+
+    // incarcam adresa de email a utilizatorului authentificat
+    let curent_user_email = localStorage.getItem(CURENT_USER_EMAIL);
+
+    // Pagina de gardă pentru utilizatorii neautentificați
+    if (curent_user_email === null) {
+        document.location = "index.html"
+    }
+
+    // incarcam lista de utilizatori
+    let users = JSON.parse(localStorage.getItem(USERS) || "[]");
+
+    // iteram prin lista de utilizatori si cautam userul cu adresa de email
+    for (let user of users) {
+        if (user.email === curent_user_email) {
+            document.getElementById("username").innerText = user.first_name + " " + user.last_name
+
+            // Iesim din bucla dupa primul utilizator gasit
+            break
+        }
+    }
+
+    flats = JSON.parse(localStorage.getItem("ads-" + curent_user_email) || "[]");
+
+    ListFlats(flats, listSortBy)
+
+});
+
+document.getElementById("listSortBy").addEventListener("change", function (e) {
+    sortBy = e.target.value
+    ListFlats(flats, sortBy)
+})
+
+document.getElementById("editProfile").addEventListener("submit", function (e) {
+    e.preventDefault();
+    //pentru toate elem din forma,mai putin btn Submit,citim valoarile
+    let user = {}
+    for (let i = 0; i < e.target.length; i++) {
+        if (e.target[i].type === "submit") {
+            continue
+        }
+        switch (e.target[i].id) {
+            case "email_profile":
+                user.email = e.target[i].value;
+                break
+            case "password_profile":
+                user.password = e.target[i].value;
+                break
+            case "first_name":
+                user.first_name = e.target[i].value;
+                break
+            case "last_name":
+                user.last_name = e.target[i].value;
+                break
+            case "data_nastere":
+                user.data_nastere = e.target[i].value;
+                break
+            default:
+
+
+        }
+    }
+
+    // incarcam lista de anunturi din local storage
+    let users = JSON.parse(localStorage.getItem(USERS) || "[]");
+
+    // Obtinem adresa de email a userului logat
+    let user_email = localStorage.getItem(CURENT_USER_EMAIL);
+
+    //
+    for (let registered_user of users) {
+        if (registered_user.email == user.email) {
+
+            toastr["error"]("adresa deja exista");
+            // guard duplicate email address
+            return
+        }
+    }
+
+    // Iteram prin useri si gasim userul dupa adresa de email a utilizatorului authentificat
+    for (let i = 0; i < users.length; i++) {
+        if (users[i].email == user_email) {
+            users[i].email = user.email
+            users[i].first_name = user.first_name
+            users[i].last_name = user.last_name
+            users[i].password = user.password
+            users[i].data_nastere = user.data_nastere
+
+            // acutalizam adresa de email a utilizatorului autentificat cu noua valoare
+            if (user_email != user.email) {
+                localStorage.setItem(CURENT_USER_EMAIL, user.email);
+                localStorage.setItem("ads-" + user.email, localStorage.getItem("ads-" + user_email));
+                localStorage.removeItem("ads-" + user_email);
             }
         }
+    }
 
-        // incarcam lista de anunturi din local storage
-        let users = JSON.parse(localStorage.getItem(USERS) || "[]");
+    // Salvam lista de anunturi
+    localStorage.setItem(USERS, JSON.stringify(users));
+    e.target.reset();
 
-        // Obtinem adresa de email a userului logat
-        let user_email = localStorage.getItem(CURENT_USER_EMAIL);
+    ToggleCard("addFlatForm");
+});
 
 
+function logoutBtn() {
 
+    if (window.confirm("Are you sure ?")) {
+        localStorage.removeItem(CURENT_USER_EMAIL)
+        document.location = "index.html"
+    }
+}
 
-        //
-        for (let registered_user of users) {
-            if (registered_user.email == user.email) {
+function addRemoveListEvent(removeList, newDiv) {
+    removeList.addEventListener("click", function () {
+        newDiv.remove();
+    });
+}
 
-                toastr["error"]("adresa deja exista");
-                // guard duplicate email address
-                return
-            }
+//  functie logout de inactivitate
+let stop = false;
+let initial_timer = (35 * 60 * 1000);
+let timer = initial_timer;
+
+if (!stop) {
+    setInterval(function () {
+        timer -= 1000;
+        // console.log("Timer:" + timer);
+        if (timer == 0 || timer < 0) {
+            logoutBtn()
+            stop = true;
         }
+    }, 1000);
+}
 
-        // Iteram prin useri si gasim userul dupa adresa de email a utilizatorului authentificat
-        for (let i = 0; i < users.length; i++) {
-            if (users[i].email == user_email) {
-                users[i].email = user.email
-                users[i].first_name = user.first_name
-                users[i].last_name = user.last_name
-                users[i].password = user.password
-                users[i].data_nastere = user.data_nastere
-
-                // acutalizam adresa de email a utilizatorului autentificat cu noua valoare
-                if (user_email != user.email) {
-                    localStorage.setItem(CURENT_USER_EMAIL, user.email);
-                    localStorage.setItem("ads-" + user.email, localStorage.getItem("ads-" + user_email));
-                    localStorage.removeItem("ads-" + user_email);
-                }
-            }
-        }
-
-        // Salvam lista de anunturi
-        localStorage.setItem(USERS, JSON.stringify(users));
-        e.target.reset();
-
-        ToggleCard("addFlatForm");
+$('body').bind('click dblclick mousedown mouseenter mouseleave keyup mouseover',
+    function (e) {
+        timer = initial_timer;
     });
 
 
-    function logoutBtn() {
-
-        if (window.confirm("Are you sure ?")) {
-            localStorage.removeItem(CURENT_USER_EMAIL)
-            document.location = "index.html"
-        }
-    }
-
-    function addRemoveListEvent(removeList, newDiv) {
-        removeList.addEventListener("click", function () {
-            newDiv.remove();
-        });
-    }
-
-    //  functie logout de inactivitate
-    let stop = false;
-    let initial_timer = (35 * 60 * 1000);
-    let timer = initial_timer;
-
-    if (!stop) {
-        setInterval(function () {
-            timer -= 1000;
-            // console.log("Timer:" + timer);
-            if (timer == 0 || timer < 0) {
-                logoutBtn()
-                stop = true;
-            }
-        }, 1000);
-    }
-
-    $('body').bind('click dblclick mousedown mouseenter mouseleave keyup mouseover',
-        function (e) {
-            timer = initial_timer;
-        });
-
-
-    toastr.options = {
-        "closeButton": false,
-        "debug": false,
-        "newestOnTop": false,
-        "progressBar": true,
-        "positionClass": "toast-top-center",
-        "preventDuplicates": false,
-        "onclick": null,
-        "showDuration": "3000",
-        "hideDuration": "1000",
-        "timeOut": "5000",
-        "extendedTimeOut": "1000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-    }
+toastr.options = {
+    "closeButton": false,
+    "debug": false,
+    "newestOnTop": false,
+    "progressBar": true,
+    "positionClass": "toast-top-center",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "3000",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
 }
