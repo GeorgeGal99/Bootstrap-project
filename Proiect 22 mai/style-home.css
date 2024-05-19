@@ -3,6 +3,8 @@ body {
 
 }
 
+
+
 /* setings for  all visual flat( disappear) */
 .hide {
     opacity: 0;
@@ -77,7 +79,6 @@ nav.navigation div.p-3 {
     overflow-x: auto;
 }
 
-<<<<<<< HEAD
 /* setings  modal confirmation (remove,favorit,logout) */
 
 #id_confirmdiv {
@@ -111,8 +112,6 @@ nav.navigation div.p-3 {
     border-radius: 8px;
 }
 
-=======
->>>>>>> parent of ef3b20f (ok)
 /* setings for  media queries mobile */
 
 @media(max-width :450px) {
@@ -194,30 +193,5 @@ nav.navigation div.p-3 {
     .card.show {
         width: 15.625rem;
     }
-
-
-    /* .card-right.show {
-        width: 25rem;
-    } */
-
-
-    /* .form-check {
-        display: inline-block;
-
-    } */
-
-    /* .form-floating {
-        margin-bottom: 0px;
-
-    } */
-
-    /* .container {
-
-        display: flex;
-        flex-direction: column;
-
-
-    } */
-
 
 }

@@ -16,10 +16,16 @@ const CURENT_USER_EMAIL = "currentUserEmail"
 let flats = [];
 
 
+// functia de afisare ca view flat
+// display function as view flat
+
 function ShowCard(cardId) {
     let card = document.getElementById(cardId);
     card.style = "display:block";
 }
+
+// functia de comutare flat si my profile
+// flat and my profile switching function
 
 function ToggleCard(cardId) {
     let card = document.getElementById(cardId);
@@ -48,8 +54,8 @@ function ToggleCard(cardId) {
             card.style.display = "none";
         }
     }
-
 }
+
 
 document.getElementById("addFlatForm").addEventListener("submit", function (e) {
     e.preventDefault();
@@ -198,21 +204,24 @@ function AddFlatToList(flat) {
 
     for (let button of buttons) {
 
-
         if (button.id == "removeFlat") {
 
             button.addEventListener("click", function () {
 
-                if (window.confirm("Are you sure ?")) {
+                let div = document.getElementById('id_confirmdiv');
+                let par = div.querySelector('p');
+                div.setAttribute('style', 'display:block !important');
+                par.innerText = "Do you want to delete this Apartement?";
+                document.getElementById('id_truebtn').onclick = function () {
+
                     RemoveFlatFromList(flat.index);
-                    alert(' deleted')
-                } else {
-                    alert('not deleted')
+                    div.style.display = "none";
                 }
-                return del;
+                document.getElementById('id_falsebtn').onclick = function () {
 
+                    div.style.display = "none";
+                }
             });
-
 
         }
         if (button.id == "addToFavorite") {
@@ -223,7 +232,25 @@ function AddFlatToList(flat) {
 
             button.addEventListener("click", function () {
 
-                AddToFavorite(flat.index);
+                let div = document.getElementById('id_confirmdiv');
+                let par = div.querySelector('p');
+                div.setAttribute('style', 'display:block !important');
+                if (this.classList.contains('btn-warning')) {
+
+                    par.innerText = "Do you want to remove this Apartement from favorites?";
+                }
+                else {
+                    par.innerText = "Do you want to add this Apartement from favorites?";
+                }
+
+                document.getElementById('id_truebtn').onclick = function () {
+                    AddToFavorite(flat.index);
+                    div.style.display = "none";
+                }
+                document.getElementById('id_falsebtn').onclick = function () {
+                    div.style.display = "none";
+                }
+
             });
         }
     }
@@ -317,7 +344,6 @@ function RemoveFlatFromList(index) {
 
     // Salvam lista de anunturi
     localStorage.setItem(ads_key, JSON.stringify(newAds));
-
     ListFlats(newAds, listSortBy)
 }
 
@@ -354,15 +380,20 @@ document.addEventListener("DOMContentLoaded", (event) => {
 });
 
 document.getElementById("listSortBy").addEventListener("change", function (e) {
-    sortBy = e.target.value
-    // console.log(sortBy);
-    // console.log(flats);
+    sortBy = e.target.value;
     ListFlats(flats, sortBy)
 })
 
+
+// Aici adaugam pe 'editare profil' un eveniment si incepem functia de editare profil a userului
+// Here we add an event on 'profile editing' and start the user's profile editing function
+
 document.getElementById("editProfile").addEventListener("submit", function (e) {
     e.preventDefault();
-    //pentru toate elem din forma,mai putin btn Submit,citim valoarile
+
+    // citim valoarile din input pentru toate elementele din forma,mai putin btn Submit,
+    // read the values from input ​​for all elemements in the form, except btn Submit
+
     let user = {}
     for (let i = 0; i < e.target.length; i++) {
         if (e.target[i].type === "submit") {
@@ -385,18 +416,26 @@ document.getElementById("editProfile").addEventListener("submit", function (e) {
                 user.data_nastere = e.target[i].value;
                 break
             default:
-            // console.log("warning: missing attribute: ", e.target[i])
-
         }
     }
 
     // incarcam lista de anunturi din local storage
+    // load the list of announcements from local storage
+
     let users = JSON.parse(localStorage.getItem(USERS) || "[]");
 
     // Obtinem adresa de email a userului logat
+    // We get the email address of the logged in use
+
     let user_email = localStorage.getItem(CURENT_USER_EMAIL);
 
-    //
+
+    // let showEmail = document.getElementById("emailparagraf");
+    // showEmail.innerText = ` ${user_email}`;
+
+    // iteram prin useri sa vedem daca avem useri cu acelasi nume
+    // we iterate through the users to see if we have users with the same name
+
     for (let registered_user of users) {
         if (registered_user.email == user.email) {
 
@@ -406,7 +445,12 @@ document.getElementById("editProfile").addEventListener("submit", function (e) {
         }
     }
 
-    // Iteram prin useri si gasim userul dupa adresa de email a utilizatorului authentificat
+    //  Iteram prin useri si gasim userul dupa adresa de email a utilizatorului 
+    // autentificat ca sa putem modifica datele personale
+
+    // We iterate through the users and find the user by the user's email address
+    // authenticated so we can change personal data
+
     for (let i = 0; i < users.length; i++) {
         if (users[i].email == user_email) {
             users[i].email = user.email
@@ -415,28 +459,39 @@ document.getElementById("editProfile").addEventListener("submit", function (e) {
             users[i].password = user.password
             users[i].data_nastere = user.data_nastere
 
-            // acutalizam adresa de email a utilizatorului autentificat cu noua valoare
+            // actualizam adresa de email a utilizatorului autentificat cu noua valoare si apoi obligam sa se logheze din nou
+            // update the email address of the authenticated user with the new value and then force him to log in again
+
             if (user_email != user.email) {
                 localStorage.setItem(CURENT_USER_EMAIL, user.email);
                 localStorage.setItem("ads-" + user.email, localStorage.getItem("ads-" + user_email));
                 localStorage.removeItem("ads-" + user_email);
+                document.location = "index.html"
             }
         }
     }
-
     // Salvam lista de anunturi
+
     localStorage.setItem(USERS, JSON.stringify(users));
     e.target.reset();
-
     ToggleCard("addFlatForm");
+
 });
 
 
 function logoutBtn() {
 
-    if (window.confirm("Are you sure ?")) {
+    let div = document.getElementById('id_confirmdiv');
+    let par = div.querySelector('p');
+    div.setAttribute('style', 'display:block !important');
+    par.innerText = "Do you want to Logout?";
+    document.getElementById('id_truebtn').onclick = function () {
         localStorage.removeItem(CURENT_USER_EMAIL)
         document.location = "index.html"
+        div.style.display = "none";
+    }
+    document.getElementById('id_falsebtn').onclick = function () {
+        div.style.display = "none";
     }
 }
 
@@ -447,6 +502,8 @@ function addRemoveListEvent(removeList, newDiv) {
 }
 
 //  functie logout de inactivitate
+// inactivity logout function
+
 let stop = false;
 let initial_timer = (35 * 60 * 1000);
 let timer = initial_timer;
