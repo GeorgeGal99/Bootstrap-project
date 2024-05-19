@@ -82,8 +82,8 @@ nav.navigation div.p-3 {
 /* setings  modal confirmation (remove,favorit,logout) */
 
 #id_confirmdiv {
-    /* display: none !important;
-    display: flex; */
+    display: none !important;
+
 
     background-color: #eee;
     border-radius: 10px;

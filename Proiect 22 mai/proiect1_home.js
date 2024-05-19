@@ -371,7 +371,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
     for (let user of users) {
         if (user.email === curent_user_email) {
             document.getElementById("username").innerText = user.first_name + " " + user.last_name
-
+            document.getElementById("email_profile").value = user.email;
+            document.getElementById("password_profile").value = user.password;
+            document.getElementById("first_name").value = user.first_name;
+            document.getElementById("last_name").value = user.last_name;
+            document.getElementById("data_nastere").value = user.data_nastere;
             // Iesim din bucla dupa primul utilizator gasit
             break
         }
