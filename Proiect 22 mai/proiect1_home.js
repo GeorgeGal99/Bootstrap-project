@@ -428,10 +428,10 @@ document.getElementById("editProfile").addEventListener("submit", function (e) {
     // We get the email address of the logged in use
 
     let user_email = localStorage.getItem(CURENT_USER_EMAIL);
-
-
-    // let showEmail = document.getElementById("emailparagraf");
-    // showEmail.innerText = ` ${user_email}`;
+    // nu merge  
+    user_email = JSON.parse(localStorage.getItem("CURENT_USER_EMAIL"));
+    let showEmail = document.getElementById("emailparagraf");
+    showEmail.innerText = ` ${user_email}`;
 
     // iteram prin useri sa vedem daca avem useri cu acelasi nume
     // we iterate through the users to see if we have users with the same name
@@ -511,7 +511,7 @@ let timer = initial_timer;
 if (!stop) {
     setInterval(function () {
         timer -= 1000;
-        // console.log("Timer:" + timer);
+        console.log("Timer:" + timer);
         if (timer == 0 || timer < 0) {
             logoutBtn()
             stop = true;
