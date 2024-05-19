@@ -56,6 +56,7 @@ function ToggleCard(cardId) {
     }
 }
 
+// functie ca sa adaug la lista  ap 
 
 document.getElementById("addFlatForm").addEventListener("submit", function (e) {
     e.preventDefault();
@@ -100,7 +101,7 @@ document.getElementById("addFlatForm").addEventListener("submit", function (e) {
         }
 
     }
-
+    //  verificari de campouri
     if (ad.city.trim() == "") {
         toastr["error"]("ciy please!");
 
@@ -164,9 +165,10 @@ document.getElementById("addFlatForm").addEventListener("submit", function (e) {
     }
 
 
-    //adaugam unnanunt in lista(array);
+    //adaugam un anunt in lista de apratamente() de tiparray);
     ad.index = flats.length - 1;
     flats.push(ad);
+
 
     // Adaugam anuntul in html
     AddFlatToList(ad);
@@ -200,6 +202,8 @@ function AddFlatToList(flat) {
         }
     }
 
+    // definirea butoanelor clona  remove si favorit de pe  view flat
+
     let buttons = clone.querySelectorAll("button");
 
 
@@ -210,6 +214,7 @@ function AddFlatToList(flat) {
 
             button.addEventListener("click", function () {
 
+                // eveniment de butoan pe remove  modal
 
                 let div = document.getElementById('id_confirmdiv');
                 let par = div.querySelector('p');
@@ -234,6 +239,7 @@ function AddFlatToList(flat) {
             }
 
             button.addEventListener("click", function () {
+                // eveniment de butoane pe favorit modal
 
                 let div = document.getElementById('id_confirmdiv');
                 let par = div.querySelector('p');
@@ -367,7 +373,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
     // incarcam lista de utilizatori
     let users = JSON.parse(localStorage.getItem(USERS) || "[]");
 
-    // iteram prin lista de utilizatori si cautam userul cu adresa de email
+    // iteram prin lista de utilizatori si cautam userul cu adresa de email si apoi afisam datele utilizatorului logat in my profile
+    // we iterate through the list of users and search for the user with the email address and then display the data of the logged in user in my profile
     for (let user of users) {
         if (user.email === curent_user_email) {
             document.getElementById("username").innerText = user.first_name + " " + user.last_name

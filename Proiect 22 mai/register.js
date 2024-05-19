@@ -9,7 +9,7 @@ let user = [];
 lastName = document.querySelector("#lastName");
 let dataValida = false;
 
-// eveniment pe inputul de data de nastere
+// eveniment toastr  instant pe inputul de data de nastere
 // event on the date of birth input
 
 dataNastere.addEventListener('change', () => {
