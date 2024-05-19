@@ -201,12 +201,11 @@ function AddFlatToList(flat) {
         if (button.id == "removeFlat") {
 
             button.addEventListener("click", function () {
-                let div = document.getElementById('id_confirmdiv');
-                let par = div.querySelector('p');
-
-                if (window.confirm("Are you sure ?")) {
-
+                if (window = confirm) {
+                    let div = document.getElementById('id_confirmdiv');
+                    let par = div.querySelector('p');
                     div.setAttribute('style', 'display:block !important');
+
                     par.innerText = "Do you want to delete this Apartment?";
                     document.getElementById('id_truebtn').onclick = function () {
 
@@ -218,7 +217,7 @@ function AddFlatToList(flat) {
 
 
                 document.getElementById('id_falsebtn').onclick = function () {
-
+                    // nu facem cod
                     div.style.display = "none";
                 };
             });
@@ -357,7 +356,6 @@ function AddFlatToList(flat) {
 
 
 
-
     // Cand se termina de incarcat pagina html
     document.addEventListener("DOMContentLoaded", (event) => {
 
@@ -432,6 +430,7 @@ function AddFlatToList(flat) {
 
 
 
+
         //
         for (let registered_user of users) {
             if (registered_user.email == user.email) {
@@ -443,8 +442,6 @@ function AddFlatToList(flat) {
         }
 
         // Iteram prin useri si gasim userul dupa adresa de email a utilizatorului authentificat
-        // We iterate through the users and find the user by the email address of the authenticated user
-
         for (let i = 0; i < users.length; i++) {
             if (users[i].email == user_email) {
                 users[i].email = user.email
@@ -454,8 +451,6 @@ function AddFlatToList(flat) {
                 users[i].data_nastere = user.data_nastere
 
                 // acutalizam adresa de email a utilizatorului autentificat cu noua valoare
-                // update the email address of the authenticated user with the new value
-
                 if (user_email != user.email) {
                     localStorage.setItem(CURENT_USER_EMAIL, user.email);
                     localStorage.setItem("ads-" + user.email, localStorage.getItem("ads-" + user_email));
@@ -465,14 +460,11 @@ function AddFlatToList(flat) {
         }
 
         // Salvam lista de anunturi
-        // Save the list of announcements
-
         localStorage.setItem(USERS, JSON.stringify(users));
         e.target.reset();
 
         ToggleCard("addFlatForm");
     });
-
 
 
     function logoutBtn() {
@@ -490,8 +482,6 @@ function AddFlatToList(flat) {
     }
 
     //  functie logout de inactivitate
-    // inactivity logout function
-
     let stop = false;
     let initial_timer = (35 * 60 * 1000);
     let timer = initial_timer;
@@ -506,9 +496,6 @@ function AddFlatToList(flat) {
             }
         }, 1000);
     }
-
-    //  functie care reseteaza contorul de inactivitate prin evenimente
-    // function that resets the inactivity counter through events
 
     $('body').bind('click dblclick mousedown mouseenter mouseleave keyup mouseover',
         function (e) {
