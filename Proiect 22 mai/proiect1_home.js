@@ -56,12 +56,15 @@ function ToggleCard(cardId) {
     }
 }
 
-// functie ca sa adaug la lista  ap 
+// functie ca sa adaugam la lista  apartamente 
+// function to add apartments to the list
 
 document.getElementById("addFlatForm").addEventListener("submit", function (e) {
     e.preventDefault();
 
-    //pentru toate elem din forma,mai putin btn Submit,citim valoarile
+    //citim valoarile pentru toate elementele  din forma,mai putin butonul de  Submit
+    //we read the values ​​for all the elements in the form, except for the Submit button
+
     let ad = {}
 
     for (let i = 0; i < e.target.length; i++) {
@@ -101,7 +104,9 @@ document.getElementById("addFlatForm").addEventListener("submit", function (e) {
         }
 
     }
-    //  verificari de campouri
+    //  verificari de inputuri sa nu puna userul ce vrea el
+    // input checks so that the user does not put what he wants
+
     if (ad.city.trim() == "") {
         toastr["error"]("ciy please!");
 
@@ -165,48 +170,61 @@ document.getElementById("addFlatForm").addEventListener("submit", function (e) {
     }
 
 
-    //adaugam un anunt in lista de apratamente() de tiparray);
+    //adaauga un camp virtual numit index la obiectul ad flat ca sa-l putem identifica in  lista dupa sortare
+    //add a virtual field called index to the ad flat object so that we can identify it in the list after sorting
     ad.index = flats.length - 1;
     flats.push(ad);
-
-
-    // Adaugam anuntul in html
     AddFlatToList(ad);
 
+
     // Obtinem adresa de email a userului logat
+    // We get the email address of the logged in user
     let user_email = localStorage.getItem(CURENT_USER_EMAIL);
 
-    // Keie stocare anunturi per user
+    //creem o  Keie stocare anunturi per user
+    //we create a Key to store ads per use
+
     let ads_key = "ads-" + user_email;
 
     // Salvam lista de anunturi
+    // Save the list of announcements
+
     localStorage.setItem(ads_key, JSON.stringify(flats));
 
+    // dupa ce salvam lista resetam campurile
+    // after saving the list, reset the fields
+
     e.target.reset();
-    //ToggleCard("addFlatForm");
 });
+
+
 
 function AddFlatToList(flat) {
     // cautam template-ul
+    // we are looking for the template
     const template = document.querySelector("#flatAddTemplate");
-    // clonam template-ul 
+
+    // clonam template-ul
+    //we clone the template
     const clone = template.content.cloneNode(true);
 
     // Cautam toate elementele span
+    // we Search all span elements
     let placeholders = clone.querySelectorAll("span");
 
+    // iteram prin inputuri 
+    // we iterate through the inputs
     for (let placeholder of placeholders) {
         // Ne asiguram ca span are setat keya obiectului in proprietatea title
+        // We make sure that span has set the object's key in the title property
         if (placeholder.title.trim() != "") {
             placeholder.innerText = flat[placeholder.title]
         }
     }
 
     // definirea butoanelor clona  remove si favorit de pe  view flat
-
+    // defining the remove and favorite clone buttons on the view flat
     let buttons = clone.querySelectorAll("button");
-
-
 
     for (let button of buttons) {
 
@@ -215,23 +233,23 @@ function AddFlatToList(flat) {
             button.addEventListener("click", function () {
 
                 // eveniment de butoan pe remove  modal
+                // button event on remove modal
 
                 let div = document.getElementById('id_confirmdiv');
                 let par = div.querySelector('p');
                 div.setAttribute('style', 'display:block !important');
                 par.innerText = "Do you want to delete this Apartement?";
                 document.getElementById('id_truebtn').onclick = function () {
-                    //facem cod
                     RemoveFlatFromList(flat.index);
                     div.style.display = "none";
                 }
                 document.getElementById('id_falsebtn').onclick = function () {
-                    // nu facem cod
                     div.style.display = "none";
                 }
             });
 
         }
+
         if (button.id == "addToFavorite") {
 
             if (flat.favorit != undefined && flat.favorit === true) {
@@ -240,7 +258,7 @@ function AddFlatToList(flat) {
 
             button.addEventListener("click", function () {
                 // eveniment de butoane pe favorit modal
-
+                // buttons event on modal favorite
                 let div = document.getElementById('id_confirmdiv');
                 let par = div.querySelector('p');
                 div.setAttribute('style', 'display:block !important');
@@ -264,9 +282,12 @@ function AddFlatToList(flat) {
         }
     }
     // Adaugam anuntul in lista 
+    // Add the ad to our list
     mainContainer.appendChild(clone);
 }
 
+// functia de afisare a apartamentelor si functia de sortare preferata
+// the function of displaying the apartments and the preferred sorting function
 
 function ListFlats(flats, sortBy) {
     mainContainer.innerHTML = ""
@@ -276,6 +297,7 @@ function ListFlats(flats, sortBy) {
         return flat
     });
 
+    // here sorting
     let sortFn
     switch (sortBy) {
         case "price_asc":
@@ -302,6 +324,7 @@ function ListFlats(flats, sortBy) {
 
     flats.sort(sortFn);
 
+    // here sorting favorites/unfavorites
     flats.sort(function (a, b) {
         if (a.favorit != undefined && a.favorit) {
             return -1;
@@ -314,37 +337,48 @@ function ListFlats(flats, sortBy) {
     }
 }
 
+
 function AddToFavorite(index) {
     // Obtinem adresa de email a userului logat
+    // We get the email address of the logged in use
     let user_email = localStorage.getItem(CURENT_USER_EMAIL);
 
     // Keie stocare anunturi per user
+    // Keie storage ads per use
     let ads_key = "ads-" + user_email;
 
     // incarcam lista de anunturi din local storage
+    //  we load the list of announcements from local storage
     let flats = JSON.parse(localStorage.getItem(ads_key) || "[]");
 
     if (flats[index] == undefined) {
         flats[index] == false
     }
-
     flats[index].favorit = !flats[index].favorit;
 
-
     // Salvam lista de anunturi
+    // Save the list of announcements
     localStorage.setItem(ads_key, JSON.stringify(flats));
     ListFlats(flats, listSortBy)
 }
 
+
 function RemoveFlatFromList(index) {
+
     // Obtinem adresa de email a userului logat
+    // We get the email address of the logged in use
     let user_email = localStorage.getItem(CURENT_USER_EMAIL);
 
     // Keie stocare anunturi per user
+    // Keie store announcements per user
     let ads_key = "ads-" + user_email;
 
     // incarcam lista de anunturi din local storage
+    //  we load the list of announcements from local storage
     let flats = JSON.parse(localStorage.getItem(ads_key) || "[]");
+
+    // cream un nou array fara anuntul  de la indexul specificat
+    // we create a new array without the announcement from the specified index
     let newAds = []
     for (let i = 0; i < flats.length; i++) {
         if (i != index) {
@@ -352,25 +386,29 @@ function RemoveFlatFromList(index) {
         }
     }
 
-    // Salvam lista de anunturi
+    //  Apoi Salvam noua lista de anunturi
+    // After we Save the new list of announcements
     localStorage.setItem(ads_key, JSON.stringify(newAds));
     ListFlats(newAds, listSortBy)
 }
 
 
-
-// Cand se termina de incarcat pagina html
+// aceste eveniment se intampla doar dupa ce se incarca pagina html
+// these events happen only after the html page is loaded
 document.addEventListener("DOMContentLoaded", (event) => {
 
     // incarcam adresa de email a utilizatorului authentificat
+    // load the email address of the authenticated use
     let curent_user_email = localStorage.getItem(CURENT_USER_EMAIL);
 
     // Pagina de gardă pentru utilizatorii neautentificați
+    // Guard page for unauthenticated users
     if (curent_user_email === null) {
         document.location = "index.html"
     }
 
-    // incarcam lista de utilizatori
+    // incarcam lista de utilizatori din local storage
+    // load the list of users from local storage
     let users = JSON.parse(localStorage.getItem(USERS) || "[]");
 
     // iteram prin lista de utilizatori si cautam userul cu adresa de email si apoi afisam datele utilizatorului logat in my profile
@@ -388,12 +426,18 @@ document.addEventListener("DOMContentLoaded", (event) => {
         }
     }
 
+    // recuperam datele despre apartamentele utilizatorului curent
+    // we retrieve the data about the apartments of the current user
     flats = JSON.parse(localStorage.getItem("ads-" + curent_user_email) || "[]");
 
+    // reafisam apartamentele in noua optiune de sortare
+    // we redisplay the apartments in the new sorting option
     ListFlats(flats, listSortBy)
 
 });
 
+// eveniment pe functia de sortare dropdown
+// event on the dropdown sort function
 document.getElementById("listSortBy").addEventListener("change", function (e) {
     sortBy = e.target.value;
     ListFlats(flats, sortBy)

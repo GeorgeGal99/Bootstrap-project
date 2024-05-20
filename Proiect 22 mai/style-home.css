@@ -82,6 +82,7 @@ nav.navigation div.p-3 {
 /* setings  modal confirmation (remove,favorit,logout) */
 
 #id_confirmdiv {
+    z-index: 1000;
     display: none !important;
     background-color: #eee;
     border-radius: 10px;
@@ -100,7 +101,7 @@ nav.navigation div.p-3 {
 /* style button modal */
 
 #id_truebtn {
-    background-color: aqua;
+    background-color: rgb(119, 240, 135);
     border-radius: 8px;
 
 }
@@ -192,6 +193,11 @@ nav.navigation div.p-3 {
 
     .card.show {
         width: 15.625rem;
+    }
+
+    #id_confirmdiv {
+        width: 200px;
+        height: 100px;
     }
 
 }
