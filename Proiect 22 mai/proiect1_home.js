@@ -566,7 +566,7 @@ let timer = initial_timer;
 if (!stop) {
     setInterval(function () {
         timer -= 1000;
-        // console.log("Timer:" + timer);
+        console.log("Timer:" + timer);
         if (timer == 0 || timer < 0) {
             logoutBtn()
             stop = true;
