@@ -89,8 +89,8 @@ nav.navigation div.p-3 {
     border: 2px solid #aaa;
     position: fixed;
     transform: translate(-50%, -50%);
-    width: 250px;
-    height: 100px;
+    width: 15.625rem;
+    height: 6.25;
     left: 50%;
     bottom: 50%;
     box-sizing: border-box;
@@ -195,9 +195,11 @@ nav.navigation div.p-3 {
         width: 15.625rem;
     }
 
+    /* set for modal */
+
     #id_confirmdiv {
-        width: 200px;
-        height: 100px;
+        width: 12.5rem;
+        height: 6.25rem;
         transform: translate(-50%, -50%);
     }
 
