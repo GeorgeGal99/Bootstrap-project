@@ -198,6 +198,7 @@ nav.navigation div.p-3 {
     #id_confirmdiv {
         width: 200px;
         height: 100px;
+        transform: translate(-50%, -50%);
     }
 
 }
