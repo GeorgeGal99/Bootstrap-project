@@ -56,7 +56,7 @@ dataNastere.addEventListener('change', () => {
 
     if (currentDate.getFullYear() - enteredDate.getFullYear() < varstaMinima) {
         dataValida = false;
-        toastr["error"]("nu ai 18 ani!");
+        toastr["error"]("You must be at least 18 years old");
 
     } else if (currentDate.getFullYear() - enteredDate.getFullYear() > varstaMaxima) {
         toastr["error"]("You are not the terminator!");
